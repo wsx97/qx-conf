@@ -9,21 +9,27 @@
 
 ## 一键导入
 
+### [**→ 点这里添加到 Quantumult X**](https://wsx97.github.io/qx-conf/)
+
+点开是一个中转页，会在手机上唤起 Quantumult X，确认即添加 **1 条分流规则 + 6 个重写模块**。
+
+> **为什么要绕一层中转页**：GitHub 会过滤 `quantumult-x://` 这类自定义 scheme，直接写成 Markdown 链接根本不会被渲染成链接（只会显示成一段裸文本）。所以仓库根目录放了一个静态页 `index.html`，用 https 打开后由它去唤起 App。
+
+### 或者扫码
+
 ![扫码导入 Quantumult X](import-qr.png)
 
-用 iPhone 相机扫上面的码 → 调起 Quantumult X → 确认，即添加 **1 条分流规则 + 6 个重写模块**。
+扫码不经过任何网络请求，二维码里直接就是指到 App 的地址——**中转页打不开时用这个**（github.io 在国内经常连不上）。
 
-> **为什么不是可点击的链接**：GitHub 会过滤 `quantumult-x://` 这类自定义 scheme，写成 Markdown 链接也只会显示成一段裸文本、点了没有任何反应。所以这里只能扫码或复制。
->
-> 二维码里编码的是精简写法（省掉默认的 `enabled` / `update-interval`），效果与 `QuantumultX-lazy.conf` 一致。
+### 或者复制地址
 
-也可以复制下面这段地址，粘到 Safari 地址栏回车（同样会调起 QX）：
+粘到 Safari 地址栏回车，同样会调起 QX：
 
 ```text
 quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2F217heidai%2Fadblockfilters%2Fmain%2Frules%2Fadblockqxlite.conf%2C%20tag%3DAdLite%2C%20force-policy%3Dreject%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FAmapAds.conf%2C%20tag%3Damap%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FWeiboAds.conf%2C%20tag%3Dweibo%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FGoofishAds.conf%2C%20tag%3Dgoofish%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FTieBaAds.conf%2C%20tag%3Dtieba%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FNeteaseAds.conf%2C%20tag%3Dnetease%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FYoutubeAds.conf%2C%20tag%3Dyoutube%22%5D%7D
 ```
 
-> 该地址只涵盖广告列表和 6 个重写模块；conf 里负责国内直连的 `FILTER_REGION` / `FILTER_LAN` 两行不在其中。想要完整行为请直接**导入整份 `QuantumultX-lazy.conf`**。
+> 以上方式都只涵盖广告列表和 6 个重写模块；conf 里负责国内直连的 `FILTER_REGION` / `FILTER_LAN` 两行不在其中。想要完整行为请直接**导入整份 `QuantumultX-lazy.conf`**。
 > 如果你的 QX 版本对这个 scheme 没反应（部分旧版不支持），走下面的「快速开始」。
 
 ## 特性
