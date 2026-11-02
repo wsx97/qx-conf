@@ -31,7 +31,7 @@ quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22http
 | 能力 | 实现方式 |
 |---|---|
 | 网页 / 域名级广告拦截 | `[filter_remote]` 引用 [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) 的 `adblockqxlite.conf`（实测 8,480 条 / 315KB，上游每 8 小时更新），`force-policy=reject` |
-| App 内广告净化 | `[rewrite_remote]` 引用 6 个高频模块（高德 / 微博 / 闲鱼 / 贴吧 / 网易云 / 油管），按文件内更新时间筛选 |
+| App 内广告净化 | `[rewrite_remote]` 引用 6 个高频模块（高德 / 微博 / 闲鱼 / 贴吧 / 网易云 / 油管），conf 里按来源分组、模块更新日期写在注释里 |
 | 国内直连、其余走代理 | `[filter_remote]` 中内置 `FILTER_REGION` / `FILTER_LAN`，**排在广告规则之后**，再加 `final` 兜底 |
 | 自动选最优节点 | `[policy]` 中 `url-latency-benchmark`，600s 重测、100ms 容差防抖 |
 | 覆盖面取舍 | **只启用精简版**，规则数约为全量（29 万条）的 3%；需要更深拦截时可换回全量列表 |
