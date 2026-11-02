@@ -15,15 +15,9 @@
 
 > **为什么要绕一层中转页**：GitHub 会过滤 `quantumult-x://` 这类自定义 scheme，直接写成 Markdown 链接根本不会被渲染成链接（只会显示成一段裸文本）。所以仓库根目录放了一个静态页 `index.html`，用 https 打开后由它去唤起 App。
 
-### 或者扫码
+### 中转页打不开时
 
-![扫码导入 Quantumult X](import-qr.png)
-
-扫码不经过任何网络请求，二维码里直接就是指到 App 的地址——**中转页打不开时用这个**（github.io 在国内经常连不上）。
-
-### 或者复制地址
-
-粘到 Safari 地址栏回车，同样会调起 QX：
+`github.io` 在国内经常连不上，这时用下面的方式直接调起 App，不经过中转页——复制地址粘到 Safari 地址栏回车即可：
 
 ```text
 quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2F217heidai%2Fadblockfilters%2Fmain%2Frules%2Fadblockqxlite.conf%2C%20tag%3DAdLite%2C%20force-policy%3Dreject%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FAmapAds.conf%2C%20tag%3Damap%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FWeiboAds.conf%2C%20tag%3Dweibo%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FGoofishAds.conf%2C%20tag%3Dgoofish%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FTieBaAds.conf%2C%20tag%3Dtieba%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FNeteaseAds.conf%2C%20tag%3Dnetease%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FYoutubeAds.conf%2C%20tag%3Dyoutube%22%5D%7D
