@@ -9,13 +9,22 @@
 
 ## 一键导入
 
-[**→ 点这里添加到 Quantumult X**](quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2F217heidai%2Fadblockfilters%2Fmain%2Frules%2Fadblockqxlite.conf%2C%20tag%3DAdLite%2C%20force-policy%3Dreject%2C%20update-interval%3D28800%2C%20enabled%3Dtrue%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FAmapAds.conf%2C%20tag%3D%E9%AB%98%E5%BE%B7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FWeiboAds.conf%2C%20tag%3D%E5%BE%AE%E5%8D%9A%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FGoofishAds.conf%2C%20tag%3D%E9%97%B2%E9%B1%BC%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FTieBaAds.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FNeteaseAds.conf%2C%20tag%3D%E7%BD%91%E6%98%93%E4%BA%91%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FYoutubeAds.conf%2C%20tag%3D%E6%B2%B9%E7%AE%A1%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%7D
+![扫码导入 Quantumult X](import-qr.png)
 
-点开链接后 QX 会弹窗询问，确认即自动添加 **1 条分流规则 + 6 个重写模块**，参数（含 `force-policy=reject`）一并带上。
+用 iPhone 相机扫上面的码 → 调起 Quantumult X → 确认，即添加 **1 条分流规则 + 6 个重写模块**。
 
-> 这个链接只涵盖广告列表和 6 个重写模块。conf 里负责国内直连的 `FILTER_REGION` / `FILTER_LAN` 两行不在其中，想要完整行为请直接**导入整份 `QuantumultX-lazy.conf`**。
+> **为什么不是可点击的链接**：GitHub 会过滤 `quantumult-x://` 这类自定义 scheme，写成 Markdown 链接也只会显示成一段裸文本、点了没有任何反应。所以这里只能扫码或复制。
+>
+> 二维码里编码的是精简写法（省掉默认的 `enabled` / `update-interval`），效果与 `QuantumultX-lazy.conf` 一致。
 
-> 如果你的 QX 版本对这个 scheme 没反应（部分旧版不支持），改用下面的「快速开始」，或直接把 `QuantumultX-lazy.conf` 作为远程配置导入——效果一样。
+也可以复制下面这段地址，粘到 Safari 地址栏回车（同样会调起 QX）：
+
+```text
+quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2F217heidai%2Fadblockfilters%2Fmain%2Frules%2Fadblockqxlite.conf%2C%20tag%3DAdLite%2C%20force-policy%3Dreject%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FAmapAds.conf%2C%20tag%3Damap%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FWeiboAds.conf%2C%20tag%3Dweibo%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FGoofishAds.conf%2C%20tag%3Dgoofish%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FTieBaAds.conf%2C%20tag%3Dtieba%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FNeteaseAds.conf%2C%20tag%3Dnetease%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FYoutubeAds.conf%2C%20tag%3Dyoutube%22%5D%7D
+```
+
+> 该地址只涵盖广告列表和 6 个重写模块；conf 里负责国内直连的 `FILTER_REGION` / `FILTER_LAN` 两行不在其中。想要完整行为请直接**导入整份 `QuantumultX-lazy.conf`**。
+> 如果你的 QX 版本对这个 scheme 没反应（部分旧版不支持），走下面的「快速开始」。
 
 ## 特性
 
