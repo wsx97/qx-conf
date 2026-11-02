@@ -35,7 +35,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | `[dns]` | 国内 Do53 服务器 + `circumvent-ipv4-answer`（屏蔽运营商插广告的那批 IP） |
 | `[policy]` | 按地区拆分的策略组：香港 / 台湾 / 日本 / 狮城 / 美国节点，外加全球加速、苹果服务、港台番剧、国际媒体、电报代理、黑白名单 |
 | `[filter_remote]` | 11 个 ConnersHua/RuleGo 的 Surge 规则集（`opt-parser=true`）+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，承担广告拦截主责）+ 1 个 zqzess 的番茄小说 `.snippet`（29 条域名 / IP 拦截） |
-| `[rewrite_remote]` | 贴吧去广告、黑猫去广告、墨鱼去开屏、番茄小说去广告 |
+| `[rewrite_remote]` | 黑猫去广告、墨鱼去开屏、番茄小说去广告 |
 | `[filter_local]` | 局域网 / `.local` 直连 + `geoip, cn, direct` + `final, 黑白名单` |
 
 ### 关键依赖：资源解析器
@@ -71,6 +71,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | 停用 ConnersHua 的 `Advertising.list` | 962 条规则、2023-11 停更；已由 blackmatrix7 的 Lite 版（38,066 条）取代，两套重叠没必要都跑 |
 | 停用「神机去广告」 | 111 个 MITM 域名里 98 个（88.3%）已被黑猫声明，113 条规则里 83 条重复；且 2023-11 停更 |
 | 移除「油管去 Shorts」 | 该模块只是隐藏 YouTube 的 Shorts 入口，本身不拦广告；模块数从 4 降到 3 |
+| 移除「贴吧去广告」 | 只有 2 条规则 + 2 个脚本（含 97KB 的 protobuf 解析），上游 2026-03 停更；贴吧的开屏与 feed 广告已由黑猫 + 墨鱼覆盖，放弃的是列表页/信息流原生广告 |
 
 ## 一个容易误判的地方
 
@@ -107,7 +108,7 @@ curl -H "Accept: text/plain" https://ddgksf2013.top/rewrite/StartUpAds.conf | he
 隐私类域名仍由 ConnersHua 的 `Tracking.list`（90 条）负责，不影响。
 
 **开启后 MitM 域名很多**
-黑猫 582 个 + 墨鱼 437 个，**去重后约 726 个域名**会被解密（重复声明在 QX 里会归一，不会重复解密）。如果某个 App 白屏或加载卡住，按这个顺序关掉再试：黑猫去广告 → 墨鱼去开屏。另有贴吧、番茄小说两个专项模块各带少量域名。
+黑猫 582 个 + 墨鱼 437 个，**去重后约 726 个域名**会被解密（重复声明在 QX 里会归一，不会重复解密）。如果某个 App 白屏或加载卡住，按这个顺序关掉再试：黑猫去广告 → 墨鱼去开屏。另有番茄小说这个专项模块，带 8 个域名。
 
 **番茄小说那两条规则要都加吗**
 要，而且必须分别放对位置：`.snippet` 是 **29 条域名 / IP 拦截规则**，属于分流层，进 `[filter_remote]`；`.qxrewrite` 是 **16 条接口改写 + 11 个 MITM 域名**，属于重写层，进 `[rewrite_remote]`。两者内容不重复，只加一个会漏掉另一半。
@@ -123,7 +124,6 @@ QX 会校验配置文件里各段落是否齐全，**空段落也必须存在**�
 
 - [Orz-3/QuantumultX](https://github.com/Orz-3/QuantumultX) — 配置模板
 - [ConnersHua/RuleGo](https://github.com/ConnersHua/RuleGo) — 分流规则集（其去广告模块已停用）
-- [app2smile/rules](https://github.com/app2smile/rules) — 贴吧去广告
 - [zqzess/rule_for_quantumultX](https://github.com/zqzess/rule_for_quantumultX) — 番茄小说去广告（分流 + 重写两份）
 - [KOP-XIAO/QuantumultX](https://github.com/KOP-XIAO/QuantumultX) — 资源解析器
 - [ddgksf2013](https://ddgksf2013.top) — 墨鱼去开屏模块
