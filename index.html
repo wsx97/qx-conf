@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>导入 Quantumult X 配置</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f6f7f9; color: #1b1f24; padding: 24px;
+  }
+  @media (prefers-color-scheme: dark) { body { background: #0d1117; color: #e6edf3; } main { background: #161b22 !important; border-color: #30363d !important; } }
+  main { width: 100%; max-width: 560px; background: #fff; border: 1px solid #e3e6ea; border-radius: 14px; padding: 28px 24px; }
+  h1 { font-size: 20px; margin: 0 0 6px; }
+  .hint { margin: 0 0 20px; color: #6b7280; font-size: 14px; }
+  @media (prefers-color-scheme: dark) { .hint { color: #9aa4b2; } }
+  button {
+    width: 100%; padding: 13px 16px; font-size: 16px; font-weight: 600; border-radius: 10px;
+    border: 1px solid transparent; background: #0b7a4b; color: #fff; cursor: pointer;
+  }
+  button.secondary { background: transparent; color: inherit; border-color: #c8ced6; font-weight: 500; }
+  @media (prefers-color-scheme: dark) { button.secondary { border-color: #30363d; } }
+  button:active { transform: translateY(1px); }
+  details { margin-top: 22px; border-top: 1px solid #e3e6ea; padding-top: 16px; }
+  @media (prefers-color-scheme: dark) { details { border-color: #30363d; } }
+  summary { cursor: pointer; font-weight: 600; font-size: 14px; }
+  ol { padding-left: 20px; font-size: 14px; color: #4b5563; }
+  @media (prefers-color-scheme: dark) { ol { color: #9aa4b2; } }
+  textarea {
+    width: 100%; height: 96px; margin: 10px 0; font: 12px/1.4 ui-monospace, Menlo, monospace;
+    padding: 10px; border-radius: 8px; border: 1px solid #c8ced6; resize: vertical;
+    background: #fbfbfc; color: inherit;
+  }
+  @media (prefers-color-scheme: dark) { textarea { background: #0d1117; border-color: #30363d; } }
+  .foot { margin: 20px 0 0; font-size: 13px; }
+  a { color: #0b7a4b; }
+  .copied { color: #0b7a4b; font-size: 13px; margin-left: 8px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>正在唤起 Quantumult X…</h1>
+  <p class="hint">页面加载后会自动尝试打开 App。没反应就点下面的按钮，或展开「手动添加」。</p>
+  <button id="go">再次唤起 Quantumult X</button>
+
+  <details>
+    <summary>没反应？手动添加</summary>
+    <p style="font-size:14px">把下面这段地址复制，粘到 Safari 地址栏回车，同样会调起 QX：</p>
+    <textarea id="url" readonly spellcheck="false"></textarea>
+    <button class="secondary" id="cp">复制地址 <span class="copied" id="msg"></span></button>
+    <p style="font-size:13px;margin-top:16px">或者直接导入整份配置（含国内直连，更完整）：<br>
+    <a href="https://github.com/wsx97/qx-conf">github.com/wsx97/qx-conf</a></p>
+  </details>
+
+  <p class="foot"><a href="https://github.com/wsx97/qx-conf">← 返回仓库说明</a></p>
+</main>
+<script>
+  var SCHEME = "quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2F217heidai%2Fadblockfilters%2Fmain%2Frules%2Fadblockqxlite.conf%2C%20tag%3DAdLite%2C%20force-policy%3Dreject%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FAmapAds.conf%2C%20tag%3Damap%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FWeiboAds.conf%2C%20tag%3Dweibo%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FGoofishAds.conf%2C%20tag%3Dgoofish%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FTieBaAds.conf%2C%20tag%3Dtieba%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FNeteaseAds.conf%2C%20tag%3Dnetease%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FYoutubeAds.conf%2C%20tag%3Dyoutube%22%5D%7D";
+  var ta = document.getElementById('url');
+  ta.value = SCHEME;
+
+  function open() { window.location.href = SCHEME; }
+  document.getElementById('go').addEventListener('click', open);
+  setTimeout(open, 500);
+
+  document.getElementById('cp').addEventListener('click', function () {
+    var msg = document.getElementById('msg');
+    function done() { msg.textContent = '已复制'; setTimeout(function () { msg.textContent = ''; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(SCHEME).then(done, fallback);
+    } else { fallback(); }
+    function fallback() { ta.select(); document.execCommand('copy'); done(); }
+  });
+</script>
+</body>
+</html>
