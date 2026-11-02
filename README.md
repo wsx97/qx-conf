@@ -13,17 +13,19 @@
 
 点开链接后 QX 会弹窗询问，确认即自动添加 **1 条分流规则 + 8 个重写模块**，参数（含 `force-policy=reject`）一并带上。
 
+> 这个链接只涵盖广告列表和 8 个重写模块。conf 里负责国内直连的 `FILTER_REGION` / `FILTER_LAN` 两行不在其中，想要完整行为请直接**导入整份 `QuantumultX-lazy.conf`**。
+
 > 如果你的 QX 版本对这个 scheme 没反应（部分旧版不支持），改用下面的「快速开始」，或直接把 `QuantumultX-lazy.conf` 作为远程配置导入——效果一样。
 
 ## 特性
 
 | 能力 | 实现方式 |
 |---|---|
-| 网页 / 域名级广告拦截 | `[filter_remote]` 引用 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 的 `Advertising.list`（291,159 条），`force-policy=reject` |
+| 网页 / 域名级广告拦截 | `[filter_remote]` 引用 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 的 `Advertising.list`（实测 290,670 条 / 12.5MB，近 8 次提交平均 2.3 天更新），`force-policy=reject` |
 | App 内广告净化 | `[rewrite_remote]` 引用 8 个高频模块（微信小程序 / 微博 / 网易云 / 贴吧 / 高德 / 闲鱼 / 油管 / Bing） |
-| 国内直连、其余走代理 | `[filter_local]` 中 `geoip, cn, direct` + `final` 兜底 |
+| 国内直连、其余走代理 | `[filter_remote]` 中内置 `FILTER_REGION` / `FILTER_LAN`，**排在广告规则之后**，再加 `final` 兜底 |
 | 自动选最优节点 | `[policy]` 中 `url-latency-benchmark`，600s 重测、100ms 容差防抖 |
-| 备用精简列表 | 注释里提供 315KB 的合并精简版，29 万条拖慢启动时切换 |
+| 备用精简列表 | 注释里提供 8,480 条 / 315KB 的精简版（覆盖约全量 3%），主列表拖慢启动时切换 |
 
 ## 快速开始
 
@@ -62,10 +64,10 @@ LICENSE                  MIT
 ## 常见问题
 
 **QX 启动变慢 / 占用变高**
-`Advertising.list` 有 29 万条，解析需要时间。在 `[filter_remote]` 里注释掉它，改用注释中给的精简版（`adblockqxlite.conf`，315KB，每 8 小时更新）。
+`Advertising.list` 是 12.5MB / 29 万条，QX 首次解析与加载要几秒到十几秒，内存占用也会上去。在 `[filter_remote]` 里注释掉它，改用注释中的精简版（`adblockqxlite.conf`：8,480 条 / 315KB，每 8 小时更新）——代价是覆盖面明显变窄，只有全量的约 3%。
 
 **某个 App 打不开、图片加载不出来**
-是误伤。在该 App 的域名上放行：在 `[filter_local]` 的 `geoip, cn, direct` **上面**加一行
+是误伤。在 `[filter_local]` 段里加一行放行（放在 `final` 之前即可；QX 本地规则优先于远程规则，所以能盖住广告列表）：
 
 ```ini
 host-suffix, 出问题的域名, direct
@@ -79,6 +81,9 @@ host-suffix, 出问题的域名, direct
 
 **要不要再叠一份别的广告列表？**
 不要。多份全量列表同时订阅会大量重复，既拖慢启动也更容易误伤。二选一，或都用精简版。
+
+**国内广告拦不到、时有时无**
+别把 `geoip, cn, direct` 写进 `[filter_local]`。QX 先匹配本地规则、再匹配远程规则，`geoip, cn` 会把国内 IP 上的广告域名直接放行，抢在 `[filter_remote]` 的拒绝规则之前——表现就是"有的广告拦得住、有的拦不住"。本配置因此改用内置 `FILTER_REGION` 承接国内直连，顺序天然在广告规则之后。若你的 QX 版本不认这个内置列表，再退回 `geoip, cn, direct`（会牺牲一部分国内广告拦截）。
 
 ## 未包含的内容（有意为之）
 
@@ -94,6 +99,8 @@ host-suffix, 出问题的域名, direct
 - [ddgksf2013/Rewrite](https://github.com/ddgksf2013/Rewrite) — App 净化重写
 - [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) — 合并精简列表
 - [crossutility/Quantumult-X](https://github.com/crossutility/Quantumult-X) — 官方语法样例
+
+**关于时效性**：分流规则维护很勤（近 8 次提交平均 2.3 天更新）；重写模块整体偏旧——`ddgksf2013/Rewrite` 最后提交停在 2026-06-15，`app2smile/rules` 停在 2026-03-04，`chxm1023/Rewrite` 停在 2026-04-17。App 一改版，对应重写就会失效，这是常态而非配置写错；某个模块失效时注释掉它即可，不影响其他规则。
 
 如果你要二次分发，请**只分发本仓库的这份引用式配置**，不要把他人的规则文件复制进自己仓库再发布。
 
