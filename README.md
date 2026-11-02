@@ -9,7 +9,7 @@
 
 ## 一键导入
 
-[**→ 点这里添加到 Quantumult X**](quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frule%2FQuantumultX%2FAdvertising%2FAdvertising.list%2C%20tag%3DAdvertising%2C%20force-policy%3Dreject%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FAmapAds.conf%2C%20tag%3D%E9%AB%98%E5%BE%B7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FWeiboAds.conf%2C%20tag%3D%E5%BE%AE%E5%8D%9A%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FGoofishAds.conf%2C%20tag%3D%E9%97%B2%E9%B1%BC%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FTieBaAds.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FNeteaseAds.conf%2C%20tag%3D%E7%BD%91%E6%98%93%E4%BA%91%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FYoutubeAds.conf%2C%20tag%3D%E6%B2%B9%E7%AE%A1%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%7D
+[**→ 点这里添加到 Quantumult X**](quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2F217heidai%2Fadblockfilters%2Fmain%2Frules%2Fadblockqxlite.conf%2C%20tag%3DAdLite%2C%20force-policy%3Dreject%2C%20update-interval%3D28800%2C%20enabled%3Dtrue%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FAmapAds.conf%2C%20tag%3D%E9%AB%98%E5%BE%B7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FWeiboAds.conf%2C%20tag%3D%E5%BE%AE%E5%8D%9A%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FGoofishAds.conf%2C%20tag%3D%E9%97%B2%E9%B1%BC%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FTieBaAds.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FNeteaseAds.conf%2C%20tag%3D%E7%BD%91%E6%98%93%E4%BA%91%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FYoutubeAds.conf%2C%20tag%3D%E6%B2%B9%E7%AE%A1%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%7D
 
 点开链接后 QX 会弹窗询问，确认即自动添加 **1 条分流规则 + 6 个重写模块**，参数（含 `force-policy=reject`）一并带上。
 
@@ -21,11 +21,11 @@
 
 | 能力 | 实现方式 |
 |---|---|
-| 网页 / 域名级广告拦截 | `[filter_remote]` 引用 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 的 `Advertising.list`（实测 290,670 条 / 12.5MB，近 8 次提交平均 2.3 天更新），`force-policy=reject` |
+| 网页 / 域名级广告拦截 | `[filter_remote]` 引用 [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) 的 `adblockqxlite.conf`（实测 8,480 条 / 315KB，上游每 8 小时更新），`force-policy=reject` |
 | App 内广告净化 | `[rewrite_remote]` 引用 6 个高频模块（高德 / 微博 / 闲鱼 / 贴吧 / 网易云 / 油管），按文件内更新时间筛选 |
 | 国内直连、其余走代理 | `[filter_remote]` 中内置 `FILTER_REGION` / `FILTER_LAN`，**排在广告规则之后**，再加 `final` 兜底 |
 | 自动选最优节点 | `[policy]` 中 `url-latency-benchmark`，600s 重测、100ms 容差防抖 |
-| 备用精简列表 | 注释里提供 8,480 条 / 315KB 的精简版（覆盖约全量 3%），主列表拖慢启动时切换 |
+| 覆盖面取舍 | **只启用精简版**，规则数约为全量（29 万条）的 3%；需要更深拦截时可换回全量列表 |
 
 ## 快速开始
 
@@ -63,8 +63,8 @@ LICENSE                  MIT
 
 ## 常见问题
 
-**QX 启动变慢 / 占用变高**
-`Advertising.list` 是 12.5MB / 29 万条，QX 首次解析与加载要几秒到十几秒，内存占用也会上去。在 `[filter_remote]` 里注释掉它，改用注释中的精简版（`adblockqxlite.conf`：8,480 条 / 315KB，每 8 小时更新）——代价是覆盖面明显变窄，只有全量的约 3%。
+**广告还漏 / 想拦得更彻底**
+当前只启用精简版（8,480 条 / 315KB），覆盖约等于全量列表的 3%，冷门站点和部分 App 的广告会漏，这是取舍不是故障。想更深就换回全量：把 `[filter_remote]` 里那一行换成 blackmatrix7 的 `Advertising.list`（29 万条 / 12.5MB，同样带 `force-policy=reject`），代价是 QX 首次解析要几秒到十几秒、内存占用上升。
 
 **某个 App 打不开、图片加载不出来**
 是误伤。在 `[filter_local]` 段里加一行放行（放在 `final` 之前即可；QX 本地规则优先于远程规则，所以能盖住广告列表）：
@@ -77,7 +77,7 @@ host-suffix, 出问题的域名, direct
 先换镜像（见上表）。订阅失败多半是网络问题，不是规则本身坏了。
 
 **广告还在 / 提示策略找不到**
-`force-policy=reject` 是让这份列表整体走拒绝策略的关键：列表内部自带的策略名（`Advertising`）在你的配置里并不存在。丢了这个参数，规则会因为找不到策略而不生效。
+`force-policy=reject` 是让远程列表整体走拒绝策略的关键。精简版每行自带的动作已经是 `reject`，所以对当前配置影响不大；但如果你换回全量版（其内部用的是自定义策略名 `Advertising`，你的配置里并不存在这个策略），少了这个参数规则就会因找不到策略而静默失效。
 
 **要不要再叠一份别的广告列表？**
 不要。多份全量列表同时订阅会大量重复，既拖慢启动也更容易误伤。二选一，或都用精简版。
@@ -95,7 +95,7 @@ host-suffix, 出问题的域名, direct
 
 本配置仅做整合与参数编排，规则内容全部来自以下开源项目：
 
-- [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) — 分流规则
+- [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) — 全量分流列表（本配置未启用，可选择性切换）
 - [ddgksf2013/Rewrite](https://github.com/ddgksf2013/Rewrite) — App 净化重写
 - [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) — 合并精简列表
 - [crossutility/Quantumult-X](https://github.com/crossutility/Quantumult-X) — 官方语法样例
