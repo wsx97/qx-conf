@@ -9,11 +9,11 @@
 
 ## 一键导入
 
-[**→ 点这里添加到 Quantumult X**](quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frule%2FQuantumultX%2FAdvertising%2FAdvertising.list%2C%20tag%3DAdvertising%2C%20force-policy%3Dreject%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FApplet.conf%2C%20tag%3D%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FWeiboAds.conf%2C%20tag%3D%E5%BE%AE%E5%8D%9A%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FNeteaseAds.conf%2C%20tag%3D%E7%BD%91%E6%98%93%E4%BA%91%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FTieBaAds.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FAmapAds.conf%2C%20tag%3D%E9%AB%98%E5%BE%B7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FGoofishAds.conf%2C%20tag%3D%E9%97%B2%E9%B1%BC%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FYoutubeAds.conf%2C%20tag%3D%E6%B2%B9%E7%AE%A1%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FBingSimplify.conf%2C%20tag%3DBing%E7%AE%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%7D)
+[**→ 点这里添加到 Quantumult X**](quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frule%2FQuantumultX%2FAdvertising%2FAdvertising.list%2C%20tag%3DAdvertising%2C%20force-policy%3Dreject%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FAmapAds.conf%2C%20tag%3D%E9%AB%98%E5%BE%B7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FWeiboAds.conf%2C%20tag%3D%E5%BE%AE%E5%8D%9A%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FGoofishAds.conf%2C%20tag%3D%E9%97%B2%E9%B1%BC%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FTieBaAds.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FNeteaseAds.conf%2C%20tag%3D%E7%BD%91%E6%98%93%E4%BA%91%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FYoutubeAds.conf%2C%20tag%3D%E6%B2%B9%E7%AE%A1%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%7D
 
-点开链接后 QX 会弹窗询问，确认即自动添加 **1 条分流规则 + 8 个重写模块**，参数（含 `force-policy=reject`）一并带上。
+点开链接后 QX 会弹窗询问，确认即自动添加 **1 条分流规则 + 6 个重写模块**，参数（含 `force-policy=reject`）一并带上。
 
-> 这个链接只涵盖广告列表和 8 个重写模块。conf 里负责国内直连的 `FILTER_REGION` / `FILTER_LAN` 两行不在其中，想要完整行为请直接**导入整份 `QuantumultX-lazy.conf`**。
+> 这个链接只涵盖广告列表和 6 个重写模块。conf 里负责国内直连的 `FILTER_REGION` / `FILTER_LAN` 两行不在其中，想要完整行为请直接**导入整份 `QuantumultX-lazy.conf`**。
 
 > 如果你的 QX 版本对这个 scheme 没反应（部分旧版不支持），改用下面的「快速开始」，或直接把 `QuantumultX-lazy.conf` 作为远程配置导入——效果一样。
 
@@ -22,7 +22,7 @@
 | 能力 | 实现方式 |
 |---|---|
 | 网页 / 域名级广告拦截 | `[filter_remote]` 引用 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 的 `Advertising.list`（实测 290,670 条 / 12.5MB，近 8 次提交平均 2.3 天更新），`force-policy=reject` |
-| App 内广告净化 | `[rewrite_remote]` 引用 8 个高频模块（微信小程序 / 微博 / 网易云 / 贴吧 / 高德 / 闲鱼 / 油管 / Bing） |
+| App 内广告净化 | `[rewrite_remote]` 引用 6 个高频模块（高德 / 微博 / 闲鱼 / 贴吧 / 网易云 / 油管），按文件内更新时间筛选 |
 | 国内直连、其余走代理 | `[filter_remote]` 中内置 `FILTER_REGION` / `FILTER_LAN`，**排在广告规则之后**，再加 `final` 兜底 |
 | 自动选最优节点 | `[policy]` 中 `url-latency-benchmark`，600s 重测、100ms 容差防抖 |
 | 备用精简列表 | 注释里提供 8,480 条 / 315KB 的精简版（覆盖约全量 3%），主列表拖慢启动时切换 |
@@ -32,7 +32,7 @@
 1. **改订阅**：打开 `QuantumultX-lazy.conf`，把 `[server_remote]` 下的那一行注释解开，地址换成你自己的机场订阅。
 2. **导入**：Quantumult X → 配置文件 → 导入本文件（或把本仓库的 raw 链接作为远程配置）。
 3. **装证书（关键一步）**：QX → 设置 → MitM → 生成证书并安装 → 到 iOS「设置 → 通用 → 关于本机 → 证书信任设置」打开对该证书的**完全信任**。
-   不做这步，`[rewrite_remote]` 里 8 个模块会全部静默失效——这是最常见的"配了但没用"原因。
+   不做这步，`[rewrite_remote]` 里 6 个模块会全部静默失效——这是最常见的"配了但没用"原因。
 4. 首页把策略切到「自动选择」，打开开关，刷新订阅。
 
 ## 访问加速（镜像）
@@ -89,7 +89,7 @@ host-suffix, 出问题的域名, direct
 
 - **iOS 系统更新屏蔽**：会永久阻断系统更新提示，属于"想要才加"。
 - **App 会员解锁**：稳定性差、随时失效，且涉及版权风险。
-- **开屏广告专项模块（StartUpAds 类）**：一次改写大量 App 的开屏接口，误伤概率显著高于上面那 8 个单点模块。
+- **开屏广告专项模块（StartUpAds 类）**：一次改写大量 App 的开屏接口，误伤概率显著高于上面那 6 个单点模块。
 
 ## 来源与致谢
 
@@ -100,7 +100,7 @@ host-suffix, 出问题的域名, direct
 - [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) — 合并精简列表
 - [crossutility/Quantumult-X](https://github.com/crossutility/Quantumult-X) — 官方语法样例
 
-**关于时效性**：分流规则维护很勤（近 8 次提交平均 2.3 天更新）；重写模块整体偏旧——`ddgksf2013/Rewrite` 最后提交停在 2026-06-15，`app2smile/rules` 停在 2026-03-04，`chxm1023/Rewrite` 停在 2026-04-17。App 一改版，对应重写就会失效，这是常态而非配置写错；某个模块失效时注释掉它即可，不影响其他规则。
+**关于时效性**：分流规则维护很勤（近 8 次提交平均 2.3 天更新）；重写规则整体偏旧，且**没有更快的替代源**——我逐个查过：`blackmatrix7/ios_rule_script` 的 `rewrite/` 子目录停在 2025-12-21，`app2smile/rules` 停在 2026-03-04，`chxm1023/Rewrite` 停在 2026-04-17，`ddgksf2013/Rewrite` 停在 2026-06-15（四者中最新）。所以本配置只启用其中 2025 年内更新过的 6 个，每个模块的文件内 `@UpdateTime` 都标在 conf 里。App 一改版重写就会失效，这是常态，不是配置写错。
 
 如果你要二次分发，请**只分发本仓库的这份引用式配置**，不要把他人的规则文件复制进自己仓库再发布。
 
