@@ -116,6 +116,9 @@ curl -H "Accept: text/plain" https://ddgksf2013.top/rewrite/StartUpAds.conf | he
 >
 > 小瑕疵二：`.qxrewrite` 自带的 `hostname` 行有 5 条在 QX 里无效（`*.pstatp.com.*` 这类双通配不成立、`*.pangolin-sdk-toutiao` 少了 `.com`），还漏了 `*.byteimg.com` 和 `*.snssdk.com`。我已按它 16 条规则的实际匹配对象重新推导出 8 个域名，补在本仓库配置的 `[mitm]` 里，不需要你手动改上游文件。
 
+**导入时提示「配置文件缺少模块 [server_local]」**
+QX 会校验配置文件里各段落是否齐全，**空段落也必须存在**。本配置已包含 `[server_local]` 与 `[http_backend]` 两个空段落（只有注释，没有生效行），精简配置时别把它们删掉。
+
 ## 来源与致谢
 
 - [Orz-3/QuantumultX](https://github.com/Orz-3/QuantumultX) — 配置模板
