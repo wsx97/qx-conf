@@ -1,77 +1,108 @@
-# Quantumult X 鎳掍汉閰嶇疆锛堝幓骞垮憡鍚戯級
+# Quantumult X 懒人配置（去广告向）
 
-涓€浠?*鍙仛寮曠敤銆佷笉鍚换浣曡鍒欐鏂?*鐨?Quantumult X 閰嶇疆妯℃澘锛氬垎娴佸眰鎷︽埅 + 閲嶅啓灞傚噣鍖栵紝鍙屽眰鍘诲箍鍛婏紝鍥藉唴鐩磋繛锛岃嚜鍔ㄦ祴閫熼€夎妭鐐广€?
-> 鏈粨搴?*涓嶅寘鍚换浣曚唬鐞嗚妭鐐广€佽闃呴摼鎺ユ垨绗笁鏂硅鍒欐枃浠?*銆備綘闇€瑕佽嚜澶囨満鍦鸿闃呫€?> 閰嶇疆閲岀殑瑙勫垯鍏ㄩ儴浠?URL 褰㈠紡寮曠敤鍘熶綔鑰呬粨搴擄紝鐗堟潈褰掑悇鑷綔鑰呮墍鏈夈€?
+一份**只做引用、不含任何规则正文**的 Quantumult X 配置模板：分流层拦截 + 重写层净化，双层去广告，国内直连，自动测速选节点。
+
+> 本仓库**不包含任何代理节点、订阅链接或第三方规则文件**。你需要自备机场订阅。
+> 配置里的规则全部以 URL 形式引用原作者仓库，版权归各自作者所有。
+
 ---
 
-## 涓€閿鍏?
-[**鈫?鐐硅繖閲屾坊鍔犲埌 Quantumult X**](quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frule%2FQuantumultX%2FAdvertising%2FAdvertising.list%2C%20tag%3DAdvertising%2C%20force-policy%3Dreject%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FApplet.conf%2C%20tag%3D%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FWeiboAds.conf%2C%20tag%3D%E5%BE%AE%E5%8D%9A%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FNeteaseAds.conf%2C%20tag%3D%E7%BD%91%E6%98%93%E4%BA%91%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FTieBaAds.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FAmapAds.conf%2C%20tag%3D%E9%AB%98%E5%BE%B7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FGoofishAds.conf%2C%20tag%3D%E9%97%B2%E9%B1%BC%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FYoutubeAds.conf%2C%20tag%3D%E6%B2%B9%E7%AE%A1%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FBingSimplify.conf%2C%20tag%3DBing%E7%AE%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%7D)
+## 一键导入
 
-鐐瑰紑閾炬帴鍚?QX 浼氬脊绐楄闂紝纭鍗宠嚜鍔ㄦ坊鍔?**1 鏉″垎娴佽鍒?+ 8 涓噸鍐欐ā鍧?*锛屽弬鏁帮紙鍚?`force-policy=reject`锛変竴骞跺甫涓娿€?
-> 濡傛灉浣犵殑 QX 鐗堟湰瀵硅繖涓?scheme 娌″弽搴旓紙閮ㄥ垎鏃х増涓嶆敮鎸侊級锛屾敼鐢ㄤ笅闈㈢殑銆屽揩閫熷紑濮嬨€嶏紝鎴栫洿鎺ユ妸 `QuantumultX-lazy.conf` 浣滀负杩滅▼閰嶇疆瀵煎叆鈥斺€旀晥鏋滀竴鏍枫€?
-## 鐗规€?
-| 鑳藉姏 | 瀹炵幇鏂瑰紡 |
+[**→ 点这里添加到 Quantumult X**](quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frule%2FQuantumultX%2FAdvertising%2FAdvertising.list%2C%20tag%3DAdvertising%2C%20force-policy%3Dreject%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FApplet.conf%2C%20tag%3D%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FWeiboAds.conf%2C%20tag%3D%E5%BE%AE%E5%8D%9A%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FNeteaseAds.conf%2C%20tag%3D%E7%BD%91%E6%98%93%E4%BA%91%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FTieBaAds.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FAmapAds.conf%2C%20tag%3D%E9%AB%98%E5%BE%B7%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FGoofishAds.conf%2C%20tag%3D%E9%97%B2%E9%B1%BC%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FYoutubeAds.conf%2C%20tag%3D%E6%B2%B9%E7%AE%A1%E5%87%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fddgksf2013%2FRewrite%2Fmaster%2FAdBlock%2FBingSimplify.conf%2C%20tag%3DBing%E7%AE%80%E5%8C%96%2C%20update-interval%3D86400%2C%20enabled%3Dtrue%22%5D%7D)
+
+点开链接后 QX 会弹窗询问，确认即自动添加 **1 条分流规则 + 8 个重写模块**，参数（含 `force-policy=reject`）一并带上。
+
+> 如果你的 QX 版本对这个 scheme 没反应（部分旧版不支持），改用下面的「快速开始」，或直接把 `QuantumultX-lazy.conf` 作为远程配置导入——效果一样。
+
+## 特性
+
+| 能力 | 实现方式 |
 |---|---|
-| 缃戦〉 / 鍩熷悕绾у箍鍛婃嫤鎴?| `[filter_remote]` 寮曠敤 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 鐨?`Advertising.list`锛?91,159 鏉★級锛宍force-policy=reject` |
-| App 鍐呭箍鍛婂噣鍖?| `[rewrite_remote]` 寮曠敤 8 涓珮棰戞ā鍧楋紙寰俊灏忕▼搴?/ 寰崥 / 缃戞槗浜?/ 璐村惂 / 楂樺痉 / 闂查奔 / 娌圭 / Bing锛?|
-| 鍥藉唴鐩磋繛銆佸叾浣欒蛋浠ｇ悊 | `[filter_local]` 涓?`geoip, cn, direct` + `final` 鍏滃簳 |
-| 鑷姩閫夋渶浼樿妭鐐?| `[policy]` 涓?`url-latency-benchmark`锛?00s 閲嶆祴銆?00ms 瀹瑰樊闃叉姈 |
-| 澶囩敤绮剧畝鍒楄〃 | 娉ㄩ噴閲屾彁渚?315KB 鐨勫悎骞剁簿绠€鐗堬紝29 涓囨潯鎷栨參鍚姩鏃跺垏鎹?|
+| 网页 / 域名级广告拦截 | `[filter_remote]` 引用 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 的 `Advertising.list`（291,159 条），`force-policy=reject` |
+| App 内广告净化 | `[rewrite_remote]` 引用 8 个高频模块（微信小程序 / 微博 / 网易云 / 贴吧 / 高德 / 闲鱼 / 油管 / Bing） |
+| 国内直连、其余走代理 | `[filter_local]` 中 `geoip, cn, direct` + `final` 兜底 |
+| 自动选最优节点 | `[policy]` 中 `url-latency-benchmark`，600s 重测、100ms 容差防抖 |
+| 备用精简列表 | 注释里提供 315KB 的合并精简版，29 万条拖慢启动时切换 |
 
-## 蹇€熷紑濮?
-1. **鏀硅闃?*锛氭墦寮€ `QuantumultX-lazy.conf`锛屾妸 `[server_remote]` 涓嬬殑閭ｄ竴琛屾敞閲婅В寮€锛屽湴鍧€鎹㈡垚浣犺嚜宸辩殑鏈哄満璁㈤槄銆?2. **瀵煎叆**锛歈uantumult X 鈫?閰嶇疆鏂囦欢 鈫?瀵煎叆鏈枃浠讹紙鎴栨妸鏈粨搴撶殑 raw 閾炬帴浣滀负杩滅▼閰嶇疆锛夈€?3. **瑁呰瘉涔︼紙鍏抽敭涓€姝ワ級**锛歈X 鈫?璁剧疆 鈫?MitM 鈫?鐢熸垚璇佷功骞跺畨瑁?鈫?鍒?iOS銆岃缃?鈫?閫氱敤 鈫?鍏充簬鏈満 鈫?璇佷功淇′换璁剧疆銆嶆墦寮€瀵硅璇佷功鐨?*瀹屽叏淇′换**銆?   涓嶅仛杩欐锛宍[rewrite_remote]` 閲?8 涓ā鍧椾細鍏ㄩ儴闈欓粯澶辨晥鈥斺€旇繖鏄渶甯歌鐨?閰嶄簡浣嗘病鐢?鍘熷洜銆?4. 棣栭〉鎶婄瓥鐣ュ垏鍒般€岃嚜鍔ㄩ€夋嫨銆嶏紝鎵撳紑寮€鍏筹紝鍒锋柊璁㈤槄銆?
-## 璁块棶鍔犻€燂紙闀滃儚锛?
-閰嶇疆閲屾墍鏈夎繙绋嬪湴鍧€榛樿璧?`ghproxy.net` 鍓嶇紑锛屽洜涓?`raw.githubusercontent.com` 鍦ㄥ浗鍐呯粡甯歌繛涓嶄笂銆備互涓嬮暅鍍忔垜閫愪釜瀹炴祴杩囷紙鑳借繑鍥炴甯歌鍒欏唴瀹癸紝闈炰粎鏈夊搷搴斿ご锛夛細
+## 快速开始
 
-| 闀滃儚 | 鐢ㄦ硶 | 瀹炴祴 |
+1. **改订阅**：打开 `QuantumultX-lazy.conf`，把 `[server_remote]` 下的那一行注释解开，地址换成你自己的机场订阅。
+2. **导入**：Quantumult X → 配置文件 → 导入本文件（或把本仓库的 raw 链接作为远程配置）。
+3. **装证书（关键一步）**：QX → 设置 → MitM → 生成证书并安装 → 到 iOS「设置 → 通用 → 关于本机 → 证书信任设置」打开对该证书的**完全信任**。
+   不做这步，`[rewrite_remote]` 里 8 个模块会全部静默失效——这是最常见的"配了但没用"原因。
+4. 首页把策略切到「自动选择」，打开开关，刷新订阅。
+
+## 访问加速（镜像）
+
+配置里所有远程地址默认走 `ghproxy.net` 前缀，因为 `raw.githubusercontent.com` 在国内经常连不上。以下镜像我逐个实测过（能返回正常规则内容，非仅有响应头）：
+
+| 镜像 | 用法 | 实测 |
 |---|---|---|
-| `ghproxy.net` | 鍓嶇紑寮忥細`https://ghproxy.net/https://raw.githubusercontent.com/...` | 鉁?鍙敤锛堥粯璁わ級 |
-| `gh-proxy.com` | 鍓嶇紑寮忥紝鍚屼笂 | 鉁?鍙敤 |
-| `ghfast.top` | 鍓嶇紑寮忥紝鍚屼笂 | 鉁?鍙敤 |
-| `cdn.jsdelivr.net` | 璺緞寮忥細`https://cdn.jsdelivr.net/gh/鐢ㄦ埛/浠撳簱@鍒嗘敮/璺緞` | 鉁?鍙敤 |
-| `gcore.jsdelivr.net` | 璺緞寮?| 鉂?杩斿洖绌哄唴瀹?|
-| `raw.gitmirror.com` | 璺緞寮?| 鉂?TLS 鎻℃墜澶辫触 |
+| `ghproxy.net` | 前缀式：`https://ghproxy.net/https://raw.githubusercontent.com/...` | ✅ 可用（默认） |
+| `gh-proxy.com` | 前缀式，同上 | ✅ 可用 |
+| `ghfast.top` | 前缀式，同上 | ✅ 可用 |
+| `cdn.jsdelivr.net` | 路径式：`https://cdn.jsdelivr.net/gh/用户/仓库@分支/路径` | ✅ 可用 |
+| `gcore.jsdelivr.net` | 路径式 | ❌ 返回空内容 |
+| `raw.gitmirror.com` | 路径式 | ❌ TLS 握手失败 |
 
-鍒囨崲鏂瑰紡锛氭妸 URL 閲岀殑 `https://ghproxy.net/` 鍓嶇紑鍒犳帀鍗冲洖鍒板畼鏂?raw锛屾垨鏁翠綋鎹㈡垚涓婅〃鍙︿竴涓墠缂€銆?
-> 杩欎簺閮芥槸绗笁鏂逛唬鐞嗘湇鍔★紝浣犵殑璇锋眰浼氱粡杩囧畠浠紝涔熷彲鑳介殢鏃跺仠鏈嶃€傚彧鐢ㄦ潵鎷夊彇**鍏紑鐨勮鍒欐枃浠?*锛屼笉瑕佺敤瀹冧滑浼犺緭浠讳綍绉佸瘑鍐呭锛堟瘮濡備綘鐨勮闃呴摼鎺ワ級銆?
-## 鏂囦欢璇存槑
+切换方式：把 URL 里的 `https://ghproxy.net/` 前缀删掉即回到官方 raw，或整体换成上表另一个前缀。
+
+> 这些都是第三方代理服务，你的请求会经过它们，也可能随时停服。只用来拉取**公开的规则文件**，不要用它们传输任何私密内容（比如你的订阅链接）。
+
+## 文件说明
 
 ```
-QuantumultX-lazy.conf   涓婚厤缃紙鍞竴闇€瑕佹敼鐨勬枃浠讹級
-README.md               鏈鏄?LICENSE                  MIT
+QuantumultX-lazy.conf   主配置（唯一需要改的文件）
+README.md               本说明
+LICENSE                  MIT
 .gitignore
 ```
 
-## 甯歌闂
+## 常见问题
 
-**QX 鍚姩鍙樻參 / 鍗犵敤鍙橀珮**
-`Advertising.list` 鏈?29 涓囨潯锛岃В鏋愰渶瑕佹椂闂淬€傚湪 `[filter_remote]` 閲屾敞閲婃帀瀹冿紝鏀圭敤娉ㄩ噴涓粰鐨勭簿绠€鐗堬紙`adblockqxlite.conf`锛?15KB锛屾瘡 8 灏忔椂鏇存柊锛夈€?
-**鏌愪釜 App 鎵撲笉寮€銆佸浘鐗囧姞杞戒笉鍑烘潵**
-鏄浼ゃ€傚湪璇?App 鐨勫煙鍚嶄笂鏀捐锛氬湪 `[filter_local]` 鐨?`geoip, cn, direct` **涓婇潰**鍔犱竴琛?
+**QX 启动变慢 / 占用变高**
+`Advertising.list` 有 29 万条，解析需要时间。在 `[filter_remote]` 里注释掉它，改用注释中给的精简版（`adblockqxlite.conf`，315KB，每 8 小时更新）。
+
+**某个 App 打不开、图片加载不出来**
+是误伤。在该 App 的域名上放行：在 `[filter_local]` 的 `geoip, cn, direct` **上面**加一行
+
 ```ini
-host-suffix, 鍑洪棶棰樼殑鍩熷悕, direct
+host-suffix, 出问题的域名, direct
 ```
 
-**瑙勫垯涓嶆洿鏂?/ 瀵煎叆澶辫触**
-鍏堟崲闀滃儚锛堣涓婅〃锛夈€傝闃呭け璐ュ鍗婃槸缃戠粶闂锛屼笉鏄鍒欐湰韬潖浜嗐€?
-**鎻愮ず `force-policy` 鏃犳晥鎴栧箍鍛婅繕鍦?*
-`force-policy=reject` 鏄杩欎唤鍒楄〃鏁翠綋璧版嫆缁濈瓥鐣ョ殑鍏抽敭锛氬垪琛ㄥ唴閮ㄨ嚜甯︾殑绛栫暐鍚嶏紙`Advertising`锛夊湪浣犵殑閰嶇疆閲屽苟涓嶅瓨鍦ㄣ€備涪浜嗚繖涓弬鏁帮紝瑙勫垯浼氬洜涓烘壘涓嶅埌绛栫暐鑰屼笉鐢熸晥銆?
-**瑕佷笉瑕佸啀鍙犱竴浠藉埆鐨勫箍鍛婂垪琛紵**
-涓嶈銆傚浠藉叏閲忓垪琛ㄥ悓鏃惰闃呬細澶ч噺閲嶅锛屾棦鎷栨參鍚姩涔熸洿瀹规槗璇激銆備簩閫変竴锛屾垨閮界敤绮剧畝鐗堛€?
-## 鏈寘鍚殑鍐呭锛堟湁鎰忎负涔嬶級
+**规则不更新 / 导入失败**
+先换镜像（见上表）。订阅失败多半是网络问题，不是规则本身坏了。
 
-- **iOS 绯荤粺鏇存柊灞忚斀**锛氫細姘镐箙闃绘柇绯荤粺鏇存柊鎻愮ず锛屽睘浜?鎯宠鎵嶅姞"銆?- **App 浼氬憳瑙ｉ攣**锛氱ǔ瀹氭€у樊銆侀殢鏃跺け鏁堬紝涓旀秹鍙婄増鏉冮闄┿€?- **寮€灞忓箍鍛婁笓椤规ā鍧楋紙StartUpAds 绫伙級**锛氫竴娆℃敼鍐欏ぇ閲?App 鐨勫紑灞忔帴鍙ｏ紝璇激姒傜巼鏄捐憲楂樹簬涓婇潰閭?8 涓崟鐐规ā鍧椼€?
-## 鏉ユ簮涓庤嚧璋?
-鏈厤缃粎鍋氭暣鍚堜笌鍙傛暟缂栨帓锛岃鍒欏唴瀹瑰叏閮ㄦ潵鑷互涓嬪紑婧愰」鐩細
+**广告还在 / 提示策略找不到**
+`force-policy=reject` 是让这份列表整体走拒绝策略的关键：列表内部自带的策略名（`Advertising`）在你的配置里并不存在。丢了这个参数，规则会因为找不到策略而不生效。
 
-- [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 鈥?鍒嗘祦瑙勫垯
-- [ddgksf2013/Rewrite](https://github.com/ddgksf2013/Rewrite) 鈥?App 鍑€鍖栭噸鍐?- [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) 鈥?鍚堝苟绮剧畝鍒楄〃
-- [crossutility/Quantumult-X](https://github.com/crossutility/Quantumult-X) 鈥?瀹樻柟璇硶鏍蜂緥
+**要不要再叠一份别的广告列表？**
+不要。多份全量列表同时订阅会大量重复，既拖慢启动也更容易误伤。二选一，或都用精简版。
 
-濡傛灉浣犺浜屾鍒嗗彂锛岃**鍙垎鍙戞湰浠撳簱鐨勮繖浠藉紩鐢ㄥ紡閰嶇疆**锛屼笉瑕佹妸浠栦汉鐨勮鍒欐枃浠跺鍒惰繘鑷繁浠撳簱鍐嶅彂甯冦€?
-## 鍏嶈矗澹版槑
+## 未包含的内容（有意为之）
 
-- 閰嶇疆浠呬负涓汉浣跨敤鏁寸悊锛?*涓嶄繚璇佷换浣曡鍒欑殑鏈夋晥鎬с€佸噯纭€ф垨鎸佺画鍙敤**锛涗笂娓歌鍒欓殢鏃跺彲鑳藉彉鍔ㄦ垨澶辨晥銆?- 鏈」鐩笉鎻愪緵銆佷笉浠ｇ悊銆佷笉鎺ㄨ崘浠讳綍浠ｇ悊鏈嶅姟鎴栬妭鐐癸紝璇烽伒瀹堜綘鎵€鍦ㄥ湴鍖虹殑娉曞緥娉曡銆?- 浣跨敤鏈厤缃骇鐢熺殑涓€鍒囧悗鏋滅敱浣跨敤鑰呰嚜琛屾壙鎷呫€?
+- **iOS 系统更新屏蔽**：会永久阻断系统更新提示，属于"想要才加"。
+- **App 会员解锁**：稳定性差、随时失效，且涉及版权风险。
+- **开屏广告专项模块（StartUpAds 类）**：一次改写大量 App 的开屏接口，误伤概率显著高于上面那 8 个单点模块。
+
+## 来源与致谢
+
+本配置仅做整合与参数编排，规则内容全部来自以下开源项目：
+
+- [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) — 分流规则
+- [ddgksf2013/Rewrite](https://github.com/ddgksf2013/Rewrite) — App 净化重写
+- [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) — 合并精简列表
+- [crossutility/Quantumult-X](https://github.com/crossutility/Quantumult-X) — 官方语法样例
+
+如果你要二次分发，请**只分发本仓库的这份引用式配置**，不要把他人的规则文件复制进自己仓库再发布。
+
+## 免责声明
+
+- 配置仅为个人使用整理，**不保证任何规则的有效性、准确性或持续可用**；上游规则随时可能变动或失效。
+- 本项目不提供、不代理、不推荐任何代理服务或节点，请遵守你所在地区的法律法规。
+- 使用本配置产生的一切后果由使用者自行承担。
+
 ## License
 
-鏈粨搴撲腑鐨勯厤缃笌鏂囨。浠?MIT 鍗忚鍙戝竷锛涙墍寮曠敤鐨勭涓夋柟瑙勫垯閬靛惊鍏跺悇鑷粨搴撶殑鎺堟潈鏉℃銆?
+本仓库中的配置与文档以 MIT 协议发布；所引用的第三方规则遵循其各自仓库的授权条款。
