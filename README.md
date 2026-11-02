@@ -38,6 +38,20 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | `[rewrite_remote]` | 黑猫去广告、墨鱼去开屏、番茄小说去广告 |
 | `[filter_local]` | 局域网 / `.local` 直连 + `geoip, cn, direct` + `final, 黑白名单` |
 
+### IPv6
+
+配置里跟 IPv6 有关的三处：
+
+| 位置 | 内容 |
+|---|---|
+| `[dns]` | 除了 3 个 IPv4 上游，另加阿里 `2400:3200::1` 与 DNSPod `2402:4e00::` 两个 IPv6 上游 |
+| `[filter_local]` | `::1/128`（环回）、`fe80::/10`（链路本地）、`fc00::/7`（内网 ULA）、`ff00::/8`（组播）全部直连 |
+| `[general]` | 没有写 `no-ipv6`，所以 AAAA 查询是放行的（QX 里 `no-ipv6` 会直接让 AAAA 失败） |
+
+**一个必须知道的限制**：`geoip, cn, direct` 只对 **IPv4** 生效，QX 没有 IPv6 版的 geoip。所以国内 IPv6 目标不会命中「国内直连」，而是落到 `final` 走代理。想按国家分流 IPv6，得自己加运营商的 `ip6-cidr` 地址段（比如 `2408::/16`、`2409::/16` 这些），维护成本不低。
+
+另外，节点本身得支持 IPv6 才能访问 IPv6-only 站点——这是机场侧的事，配置改不了。
+
 ### 关键依赖：资源解析器
 
 `resource_parser_url` 指向 KOP-XIAO 的 `resource-parser.js`（约 271KB），它在 QX 里把 **Surge / Loon 格式**的列表与模块就地转成 QX 格式。这是这套配置能用社区最大一批规则的原因——但也意味着：**解析器拉不到，所有 `opt-parser=true` 的条目都会失效**。
@@ -119,6 +133,9 @@ curl -H "Accept: text/plain" https://ddgksf2013.top/rewrite/StartUpAds.conf | he
 
 **导入时提示「配置文件缺少模块 [server_local]」**
 QX 会校验配置文件里各段落是否齐全，**空段落也必须存在**。本配置已包含 `[server_local]` 与 `[http_backend]` 两个空段落（只有注释，没有生效行），精简配置时别把它们删掉。
+
+**IPv6 站点打不开**
+先看节点是否支持 IPv6（机场的事）。配置层面已就绪：`[dns]` 有 IPv6 上游、AAAA 未禁用、本地 IPv6 段走直连。但注意 `geoip, cn` 只对 IPv4 生效，国内 IPv6 目标会走代理而不是直连。
 
 ## 来源与致谢
 
