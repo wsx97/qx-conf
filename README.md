@@ -6,20 +6,26 @@
 
 ---
 
-## 一键导入
+## 懒人配置链接
 
-### [**→ 点这里添加到 Quantumult X**](https://wsx97.github.io/qx-conf/)
-
-点开是一个中转页，会在手机上唤起 QX，确认即添加 **3 条拦截列表 + 4 个重写模块**。
-
-> ⚠️ **前提**：本配置的分流和重写全部依赖 `[general]` 里的 `resource_parser_url`（资源解析器）。一键链接**只添加资源条目、不会写解析器设置**，所以要先把整份 `QuantumultX-lazy.conf` 导进 QX，再用这个链接补资源；否则 Surge 格式的列表会解析失败。
-> 直接导入整份配置的话，这些资源本来就都在里面，不需要再点。
-
-中转页打不开时（`github.io` 在国内经常连不上），复制下面的地址粘到 Safari 地址栏回车，同样能调起 App：
+一条地址把整份配置加进 QX —— 分流规则、重写模块、策略组、DNS 设置全在里面：
 
 ```text
-quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FConnersHua%2FRuleGo%2Fmaster%2FSurge%2FRuleset%2FExtra%2FReject%2FTracking.list%2C%20tag%3D%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%2C%20force-policy%3Dreject%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frule%2FQuantumultX%2FAdvertisingLite%2FAdvertisingLite.list%2C%20tag%3D%E5%B9%BF%E5%91%8A%E6%8B%A6%E6%88%AALite%2C%20force-policy%3Dreject%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fzqzess%2Frule_for_quantumultX%2Fmaster%2FQuantumultX%2Fsnippet%2FFanQieNovel.snippet%2C%20tag%3D%E7%95%AA%E8%8C%84%E5%B0%8F%E8%AF%B4%2C%20force-policy%3Dreject%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fapp2smile%2Frules%2Fmaster%2Fmodule%2Ftieba-qx.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%8E%BB%E5%B9%BF%E5%91%8A%22%2C%22https%3A%2F%2Fddgksf2013.top%2Frewrite%2FStartUpAds.conf%2C%20tag%3D%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frewrite%2FQuantumultX%2FAdvertising%2FAdvertising.conf%2C%20tag%3D%E9%BB%91%E7%8C%AB%E5%8E%BB%E5%B9%BF%E5%91%8A%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fzqzess%2Frule_for_quantumultX%2Fmaster%2FQuantumultX%2Frewrite%2FFanQieNovel.qxrewrite%2C%20tag%3D%E7%95%AA%E8%8C%84%E5%B0%8F%E8%AF%B4%E5%8E%BB%E5%B9%BF%E5%91%8A%22%5D%7D
+https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/QuantumultX-lazy.conf
 ```
+
+**导入步骤**
+
+1. 复制上面的地址
+2. QX → **配置文件** → 右上角「+」→ 添加远程配置 → 粘贴 → 确认
+3. QX → **服务器** → 添加你自己的机场订阅（**订阅不在本仓库，需自备**）
+4. 回首页把策略组切到「黑白名单」或对应地区组，打开开关
+
+在手机上也可以打开 [引导页](https://wsx97.github.io/qx-conf/) 一键复制地址。
+
+> **为什么订阅要单独加**：配置里的 `[server_remote]` 只留了占位注释。把私人订阅写进公开仓库既会泄露，也会在配置更新时被覆盖。QX「服务器」页添加的节点会自动进入 `[policy]` 的地区策略组（靠节点名里的 港/HK、台/TW、日/JP、坡/SG、美/US 关键词匹配）。
+>
+> 以前那种「只添加广告资源」的一键链接已经移除，现在统一走整份配置。
 
 ## 这份配置是怎么组织的
 
