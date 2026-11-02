@@ -10,7 +10,7 @@
 
 ### [**→ 点这里添加到 Quantumult X**](https://wsx97.github.io/qx-conf/)
 
-点开是一个中转页，会在手机上唤起 QX，确认即添加 **2 条拦截列表 + 4 个重写模块**。
+点开是一个中转页，会在手机上唤起 QX，确认即添加 **3 条拦截列表 + 5 个重写模块**。
 
 > ⚠️ **前提**：本配置的分流和重写全部依赖 `[general]` 里的 `resource_parser_url`（资源解析器）。一键链接**只添加资源条目、不会写解析器设置**，所以要先把整份 `QuantumultX-lazy.conf` 导进 QX，再用这个链接补资源；否则 Surge 格式的列表会解析失败。
 > 直接导入整份配置的话，这些资源本来就都在里面，不需要再点。
@@ -18,7 +18,7 @@
 中转页打不开时（`github.io` 在国内经常连不上），复制下面的地址粘到 Safari 地址栏回车，同样能调起 App：
 
 ```text
-quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FConnersHua%2FRuleGo%2Fmaster%2FSurge%2FRuleset%2FExtra%2FReject%2FAdvertising.list%2C%20tag%3D%E5%B9%BF%E5%91%8A%E6%8B%A6%E6%88%AA%2C%20force-policy%3Dreject%2C%20opt-parser%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FConnersHua%2FRuleGo%2Fmaster%2FSurge%2FRuleset%2FExtra%2FReject%2FTracking.list%2C%20tag%3D%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%2C%20force-policy%3Dreject%2C%20opt-parser%3Dtrue%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FAioneas%2FSurge%2Fmain%2FModule%2Fyoutube.aioneas.hide-shorts.sgmodule%2C%20tag%3D%E6%B2%B9%E7%AE%A1%E5%8E%BBShorts%2C%20opt-parser%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FConnersHua%2FRuleGo%2Fmaster%2FSurge%2FModule%2FBlock%2FAdvertising.sgmodule%2C%20tag%3D%E7%A5%9E%E6%9C%BA%E5%8E%BB%E5%B9%BF%E5%91%8A%2C%20opt-parser%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fapp2smile%2Frules%2Fmaster%2Fmodule%2Ftieba-qx.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%8E%BB%E5%B9%BF%E5%91%8A%22%2C%22https%3A%2F%2Fddgksf2013.top%2Frewrite%2FStartUpAds.conf%2C%20tag%3D%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F%22%5D%7D
+quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FConnersHua%2FRuleGo%2Fmaster%2FSurge%2FRuleset%2FExtra%2FReject%2FAdvertising.list%2C%20tag%3D%E5%B9%BF%E5%91%8A%E6%8B%A6%E6%88%AA%2C%20force-policy%3Dreject%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FConnersHua%2FRuleGo%2Fmaster%2FSurge%2FRuleset%2FExtra%2FReject%2FTracking.list%2C%20tag%3D%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%2C%20force-policy%3Dreject%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frule%2FQuantumultX%2FAdvertisingLite%2FAdvertisingLite.list%2C%20tag%3D%E5%B9%BF%E5%91%8A%E6%8B%A6%E6%88%AALite%2C%20force-policy%3Dreject%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FAioneas%2FSurge%2Fmain%2FModule%2Fyoutube.aioneas.hide-shorts.sgmodule%2C%20tag%3D%E6%B2%B9%E7%AE%A1%E5%8E%BBShorts%2C%20opt-parser%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FConnersHua%2FRuleGo%2Fmaster%2FSurge%2FModule%2FBlock%2FAdvertising.sgmodule%2C%20tag%3D%E7%A5%9E%E6%9C%BA%E5%8E%BB%E5%B9%BF%E5%91%8A%2C%20opt-parser%3Dtrue%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fapp2smile%2Frules%2Fmaster%2Fmodule%2Ftieba-qx.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%8E%BB%E5%B9%BF%E5%91%8A%22%2C%22https%3A%2F%2Fddgksf2013.top%2Frewrite%2FStartUpAds.conf%2C%20tag%3D%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frewrite%2FQuantumultX%2FAdvertising%2FAdvertising.conf%2C%20tag%3D%E9%BB%91%E7%8C%AB%E5%8E%BB%E5%B9%BF%E5%91%8A%22%5D%7D
 ```
 
 ## 这份配置是怎么组织的
@@ -28,8 +28,8 @@ quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22http
 | `[general]` | `resource_parser_url` 解析器、探测网址、DNS 排除项、`udp_drop_list = 443` |
 | `[dns]` | 国内 Do53 服务器 + `circumvent-ipv4-answer`（屏蔽运营商插广告的那批 IP） |
 | `[policy]` | 按地区拆分的策略组：香港 / 台湾 / 日本 / 狮城 / 美国节点，外加全球加速、苹果服务、港台番剧、国际媒体、电报代理、黑白名单 |
-| `[filter_remote]` | 12 个 ConnersHua/RuleGo 的 Surge 规则集，全部带 `opt-parser=true`，`force-policy` 映射到上面各策略组 |
-| `[rewrite_remote]` | 油管去 Shorts、神机去广告、贴吧去广告、墨鱼去开屏 |
+| `[filter_remote]` | 12 个 ConnersHua/RuleGo 的 Surge 规则集（全部 `opt-parser=true`）+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，QX 原生） |
+| `[rewrite_remote]` | 油管去 Shorts、神机去广告、贴吧去广告、墨鱼去开屏、黑猫去广告 |
 | `[filter_local]` | 局域网 / `.local` 直连 + `geoip, cn, direct` + `final, 黑白名单` |
 
 ### 关键依赖：资源解析器
@@ -92,6 +92,12 @@ curl -H "Accept: text/plain" https://ddgksf2013.top/rewrite/StartUpAds.conf | he
 **规则不更新**
 先换镜像（把 `ghproxy.net` 换成 `gh-proxy.com` 或 `ghfast.top`），国内拉取失败基本都是网络问题。
 
+**两套广告规则会重复吗**
+会。ConnersHua 的 `Advertising.list`（976 条，2023 年停更）和 blackmatrix7 的 `AdvertisingLite.list`（38,066 条）有重叠，QX 匹配到第一条即停，重复项只会略增解析量、不会冲突。想精简就把 `tag=广告拦截`（ConnersHua 那条）注释掉，只留黑猫的。
+
+**开启后 MitM 域名突然很多**
+「墨鱼去开屏」437 个 + 「黑猫去广告」582 个，合计上千个域名会被解密。CPU 占用和偶发异常的概率随之上升。如果某个 App 白屏或加载卡住，按这个顺序关掉再试：黑猫去广告 → 墨鱼去开屏 → 神机去广告。
+
 ## 来源与致谢
 
 - [Orz-3/QuantumultX](https://github.com/Orz-3/QuantumultX) — 配置模板
@@ -100,6 +106,7 @@ curl -H "Accept: text/plain" https://ddgksf2013.top/rewrite/StartUpAds.conf | he
 - [app2smile/rules](https://github.com/app2smile/rules) — 贴吧去广告
 - [KOP-XIAO/QuantumultX](https://github.com/KOP-XIAO/QuantumultX) — 资源解析器
 - [ddgksf2013](https://ddgksf2013.top) — 墨鱼去开屏模块
+- [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) — 广告分流列表与 App 内广告重写
 
 分发时请**只分发本仓库的这份引用式配置**，不要把他人的规则文件复制进自己仓库再发布。
 
