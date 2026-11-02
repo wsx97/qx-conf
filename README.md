@@ -10,7 +10,7 @@
 
 ### [**→ 点这里添加到 Quantumult X**](https://wsx97.github.io/qx-conf/)
 
-点开是一个中转页，会在手机上唤起 QX，确认即添加 **2 条拦截列表 + 3 个重写模块**。
+点开是一个中转页，会在手机上唤起 QX，确认即添加 **3 条拦截列表 + 4 个重写模块**。
 
 > ⚠️ **前提**：本配置的分流和重写全部依赖 `[general]` 里的 `resource_parser_url`（资源解析器）。一键链接**只添加资源条目、不会写解析器设置**，所以要先把整份 `QuantumultX-lazy.conf` 导进 QX，再用这个链接补资源；否则 Surge 格式的列表会解析失败。
 > 直接导入整份配置的话，这些资源本来就都在里面，不需要再点。
@@ -18,7 +18,7 @@
 中转页打不开时（`github.io` 在国内经常连不上），复制下面的地址粘到 Safari 地址栏回车，同样能调起 App：
 
 ```text
-quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FConnersHua%2FRuleGo%2Fmaster%2FSurge%2FRuleset%2FExtra%2FReject%2FTracking.list%2C%20tag%3D%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%2C%20force-policy%3Dreject%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frule%2FQuantumultX%2FAdvertisingLite%2FAdvertisingLite.list%2C%20tag%3D%E5%B9%BF%E5%91%8A%E6%8B%A6%E6%88%AALite%2C%20force-policy%3Dreject%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fapp2smile%2Frules%2Fmaster%2Fmodule%2Ftieba-qx.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%8E%BB%E5%B9%BF%E5%91%8A%22%2C%22https%3A%2F%2Fddgksf2013.top%2Frewrite%2FStartUpAds.conf%2C%20tag%3D%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frewrite%2FQuantumultX%2FAdvertising%2FAdvertising.conf%2C%20tag%3D%E9%BB%91%E7%8C%AB%E5%8E%BB%E5%B9%BF%E5%91%8A%22%5D%7D
+quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FConnersHua%2FRuleGo%2Fmaster%2FSurge%2FRuleset%2FExtra%2FReject%2FTracking.list%2C%20tag%3D%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%2C%20force-policy%3Dreject%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frule%2FQuantumultX%2FAdvertisingLite%2FAdvertisingLite.list%2C%20tag%3D%E5%B9%BF%E5%91%8A%E6%8B%A6%E6%88%AALite%2C%20force-policy%3Dreject%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fzqzess%2Frule_for_quantumultX%2Fmaster%2FQuantumultX%2Fsnippet%2FFanQieNovel.snippet%2C%20tag%3D%E7%95%AA%E8%8C%84%E5%B0%8F%E8%AF%B4%2C%20force-policy%3Dreject%22%5D%2C%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fapp2smile%2Frules%2Fmaster%2Fmodule%2Ftieba-qx.conf%2C%20tag%3D%E8%B4%B4%E5%90%A7%E5%8E%BB%E5%B9%BF%E5%91%8A%22%2C%22https%3A%2F%2Fddgksf2013.top%2Frewrite%2FStartUpAds.conf%2C%20tag%3D%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fblackmatrix7%2Fios_rule_script%2Fmaster%2Frewrite%2FQuantumultX%2FAdvertising%2FAdvertising.conf%2C%20tag%3D%E9%BB%91%E7%8C%AB%E5%8E%BB%E5%B9%BF%E5%91%8A%22%2C%22https%3A%2F%2Fghproxy.net%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2Fzqzess%2Frule_for_quantumultX%2Fmaster%2FQuantumultX%2Frewrite%2FFanQieNovel.qxrewrite%2C%20tag%3D%E7%95%AA%E8%8C%84%E5%B0%8F%E8%AF%B4%E5%8E%BB%E5%B9%BF%E5%91%8A%22%5D%7D
 ```
 
 ## 这份配置是怎么组织的
@@ -28,8 +28,8 @@ quantumult-x:///add-resource?remote-resource=%7B%22filter_remote%22%3A%5B%22http
 | `[general]` | `resource_parser_url` 解析器、探测网址、DNS 排除项、`udp_drop_list = 443` |
 | `[dns]` | 国内 Do53 服务器 + `circumvent-ipv4-answer`（屏蔽运营商插广告的那批 IP） |
 | `[policy]` | 按地区拆分的策略组：香港 / 台湾 / 日本 / 狮城 / 美国节点，外加全球加速、苹果服务、港台番剧、国际媒体、电报代理、黑白名单 |
-| `[filter_remote]` | 11 个 ConnersHua/RuleGo 的 Surge 规则集（`opt-parser=true`）+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，QX 原生，承担广告拦截主责） |
-| `[rewrite_remote]` | 贴吧去广告、黑猫去广告、墨鱼去开屏 |
+| `[filter_remote]` | 11 个 ConnersHua/RuleGo 的 Surge 规则集（`opt-parser=true`）+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，承担广告拦截主责）+ 1 个 zqzess 的番茄小说 `.snippet`（29 条域名 / IP 拦截） |
+| `[rewrite_remote]` | 贴吧去广告、黑猫去广告、墨鱼去开屏、番茄小说去广告 |
 | `[filter_local]` | 局域网 / `.local` 直连 + `geoip, cn, direct` + `final, 黑白名单` |
 
 ### 关键依赖：资源解析器
@@ -101,13 +101,19 @@ curl -H "Accept: text/plain" https://ddgksf2013.top/rewrite/StartUpAds.conf | he
 隐私类域名仍由 ConnersHua 的 `Tracking.list`（90 条）负责，不影响。
 
 **开启后 MitM 域名很多**
-黑猫 582 个 + 墨鱼 437 个，**去重后约 726 个域名**会被解密（重复声明在 QX 里会归一，不会重复解密）。如果某个 App 白屏或加载卡住，按这个顺序关掉再试：黑猫去广告 → 墨鱼去开屏。
+黑猫 582 个 + 墨鱼 437 个，**去重后约 726 个域名**会被解密（重复声明在 QX 里会归一，不会重复解密）。如果某个 App 白屏或加载卡住，按这个顺序关掉再试：黑猫去广告 → 墨鱼去开屏。另有贴吧、番茄小说两个专项模块各带少量域名。
+
+**番茄小说那两条规则要都加吗**
+要，而且必须分别放对位置：`.snippet` 是 **29 条域名 / IP 拦截规则**，属于分流层，进 `[filter_remote]`；`.qxrewrite` 是 **16 条接口改写 + 11 个 MITM 域名**，属于重写层，进 `[rewrite_remote]`。两者内容不重复，只加一个会漏掉另一半。
+
+> 小瑕疵：`.snippet` 里有 3 条写成 `host, *xxx.com` 的规则，QX 的 `host` 不支持通配符，这几条大概率不生效。作者原文件如此，我没有改；想修就把 `host` 换成 `host-suffix`。
 
 ## 来源与致谢
 
 - [Orz-3/QuantumultX](https://github.com/Orz-3/QuantumultX) — 配置模板
 - [ConnersHua/RuleGo](https://github.com/ConnersHua/RuleGo) — 分流规则集（其去广告模块已停用）
 - [app2smile/rules](https://github.com/app2smile/rules) — 贴吧去广告
+- [zqzess/rule_for_quantumultX](https://github.com/zqzess/rule_for_quantumultX) — 番茄小说去广告（分流 + 重写两份）
 - [KOP-XIAO/QuantumultX](https://github.com/KOP-XIAO/QuantumultX) — 资源解析器
 - [ddgksf2013](https://ddgksf2013.top) — 墨鱼去开屏模块
 - [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) — 广告分流列表与 App 内广告重写
