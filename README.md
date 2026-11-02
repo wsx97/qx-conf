@@ -106,7 +106,9 @@ curl -H "Accept: text/plain" https://ddgksf2013.top/rewrite/StartUpAds.conf | he
 **番茄小说那两条规则要都加吗**
 要，而且必须分别放对位置：`.snippet` 是 **29 条域名 / IP 拦截规则**，属于分流层，进 `[filter_remote]`；`.qxrewrite` 是 **16 条接口改写 + 11 个 MITM 域名**，属于重写层，进 `[rewrite_remote]`。两者内容不重复，只加一个会漏掉另一半。
 
-> 小瑕疵：`.snippet` 里有 3 条写成 `host, *xxx.com` 的规则，QX 的 `host` 不支持通配符，这几条大概率不生效。作者原文件如此，我没有改；想修就把 `host` 换成 `host-suffix`。
+> 小瑕疵一：`.snippet` 里有 3 条写成 `host, *xxx.com` 的规则，QX 的 `host` 不支持通配符，这几条大概率不生效。作者原文件如此，我没有改；想修就把 `host` 换成 `host-suffix`。
+>
+> 小瑕疵二：`.qxrewrite` 自带的 `hostname` 行有 5 条在 QX 里无效（`*.pstatp.com.*` 这类双通配不成立、`*.pangolin-sdk-toutiao` 少了 `.com`），还漏了 `*.byteimg.com` 和 `*.snssdk.com`。我已按它 16 条规则的实际匹配对象重新推导出 8 个域名，补在本仓库配置的 `[mitm]` 里，不需要你手动改上游文件。
 
 ## 来源与致谢
 
