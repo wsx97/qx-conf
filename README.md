@@ -35,7 +35,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | `[dns]` | 国内 Do53 服务器 + `circumvent-ipv4-answer`（屏蔽运营商插广告的那批 IP） |
 | `[policy]` | 按地区拆分的策略组：香港 / 台湾 / 日本 / 狮城 / 美国节点，外加全球加速、苹果服务、港台番剧、国际媒体、电报代理、黑白名单 |
 | `[filter_remote]` | **11 个 blackmatrix7 QX 原生列表**（含 Privacy / 4×AI / WeChat）+ **1 个 AWAvenue**（`opt-parser=true`）+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，承担广告拦截主责）+ 1 个 zqzess 的番茄小说 `.snippet`（29 条）+ 217heidai 的 `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 的广告 SDK 列表（665 条，需 opt-parser） |
-| `[rewrite_remote]` | 黑猫去广告、墨鱼去开屏、番茄小说、+ 5 个 App 专项（喜马拉雅 / 大众点评 / 小红书 / 字节系 / 网易云） |
+| `[rewrite_remote]` | 黑猫去广告、墨鱼去开屏、番茄小说 + **2 个 App 专项**（字节系 / 小红书）；喜马拉雅 / 大众点评 / 网易云已按使用情况关闭（留行备查） |
 | `[filter_local]` | 局域网 / `.local` 直连 + `geoip, cn, direct` + `final, 黑白名单` |
 
 ### IPv6
@@ -207,7 +207,7 @@ QX 的 `static` 组按顺序取第一个可用项。原来 `direct` 在最后，
 - [zqzess/rule_for_quantumultX](https://github.com/zqzess/rule_for_quantumultX) — 番茄小说去广告（分流 + 重写两份）
 - [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) — 通用广告域名补充列表
 - [TG-Twilight/AWAvenue-Ads-Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule) — 广告 SDK 端点列表
-- [fmz200/wool_scripts](https://github.com/fmz200/wool_scripts) — 5 个 App 的专项去广告重写
+- [fmz200/wool_scripts](https://github.com/fmz200/wool_scripts) — App 专项去广告重写（当前启用字节系、小红书）
 - [KOP-XIAO/QuantumultX](https://github.com/KOP-XIAO/QuantumultX) — 资源解析器
 - [ddgksf2013](https://ddgksf2013.top) — 墨鱼去开屏模块
 - [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) — 广告分流列表与 App 内广告重写
