@@ -82,7 +82,8 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | `GoogleVoice.list`、`Proxy+.list` 改为注释 | 各自只有 1 条规则 |
 | 所有远程地址加 `ghproxy.net` 前缀 | `raw.githubusercontent.com` 在国内经常连不上；把前缀删掉即回到官方地址 |
 | 保留 `udp_drop_list = 443` | 模板原样：丢掉 QUIC 后视频广告退回 TCP，重写才有机会命中；代价是首帧变慢，觉得卡就注释掉 |
-| 停用 ConnersHua 的 `Advertising.list` | 962 条规则、2023-11 停更；已由 blackmatrix7 的 Lite 版（38,066 条）取代，两套重叠没必要都跑 |
+| 保留 `fallback_udp_policy = reject` | **比 `udp_drop_list` 更激进**：所有未被规则命中的 UDP 一律拒绝。语音/游戏 App 出现连不上时，先查这一条，再查 `udp_drop_list` |
+| 停用 ConnersHua 的 `Advertising.list` | 976 条规则、2023-11 停更；已由 blackmatrix7 的 Lite 版（38,066 条）取代，两套重叠没必要都跑 |
 | 停用「神机去广告」 | 111 个 MITM 域名里 98 个（88.3%）已被黑猫声明，113 条规则里 83 条重复；且 2023-11 停更 |
 | 移除「油管去 Shorts」 | 该模块只是隐藏 YouTube 的 Shorts 入口，本身不拦广告；模块数从 4 降到 3 |
 | 移除「贴吧去广告」 | 只有 2 条规则 + 2 个脚本（含 97KB 的 protobuf 解析），上游 2026-03 停更；贴吧的开屏与 feed 广告已由黑猫 + 墨鱼覆盖，放弃的是列表页/信息流原生广告 |
@@ -108,7 +109,7 @@ curl -H "Accept: text/plain" https://ddgksf2013.top/rewrite/StartUpAds.conf | he
 见上面「节点命名」一节，改 `[policy]` 里的正则，或直接用「黑白名单」组。
 
 **广告还漏**
-这套用的是 ConnersHua 的规则集，该仓库**最后一次提交停在 2023-11-11**，覆盖面和时效性都不如 2026 年还在更新的列表。想换更勤的源，把 `[filter_remote]` 里 `Advertising.list` 那一行替换掉即可，其余不用动。
+广告拦截现在由 blackmatrix7 的 `AdvertisingLite.list` 主责（配置里 `tag=广告拦截Lite` 那一行）；ConnersHua 的 `Advertising.list` 已注释停用，只是留行备查。要换更勤的源，改 `tag=广告拦截Lite` 那一行即可。其余 ConnersHua 列表停更于 2023-11-11，覆盖面和时效性都不如现行源。
 
 **看视频变卡 / 某些站点打不开**
 多半是 `udp_drop_list = 443`，注释掉它试试。
