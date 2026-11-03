@@ -95,13 +95,15 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | 原条目 | 处理 | 代价 |
 |---|---|---|
 | `Direct+`（21 条） | 21 条规则**搬进 `[filter_local]`**，保持 direct | 依赖「本地规则先于远程匹配」，该顺序未实测 |
-| `Tracking`（90 条，2026-06） | 换成黑猫 `Privacy.list`（**39,936 条**，2025-12） | 覆盖面大 444 倍且更旧，EasyPrivacy 含大量埋点/CDN，误杀面明显变大 |
+| `Tracking`（90 条，2026-06） | ~~换成黑猫 `Privacy.list`~~ → **已停用**（误伤面过大，见下） | 覆盖面大 444 倍且更旧，EasyPrivacy 含大量埋点/CDN，误杀面明显变大 |
 | `AI`（74 条，2026-07） | 换成黑猫 4 个列表（102 条，**2025-06**） | **更旧**，且 1 条变 4 条 |
 | `WeChat`（18 条含 17 个 IP） | 换成黑猫 `WeChat.list`（43 条纯域名，2025-06） | 丢掉腾讯云新加坡段 17 个 IP，海外语音/视频可能变慢 |
 
+**2026-11-03 复盘后停用了 `隐私保护`**：39,936 条 EasyPrivacy 派生覆盖埋点/归因/OAuth 回调，故障频率约周级，且它比原来的 90 条**更旧**——收益/风险比是整套配置里最差的一处。
+
 **这是用新鲜度换解析器独立性**——Tracking 和 AI 两条换的是更旧的源，不是更优的源。四条旧行都在配置里注释保留，回滚只需去掉行首 `; `。
 
-**现状**：`[filter_remote]` 17 条生效，其中只有 AWAvenue 依赖 `resource_parser_url`；规则总量约 9.9 万条（AdvertisingLite 38,066 + Privacy 39,936 两项就占 78,002）。
+**现状**：`[filter_remote]` 17 条生效，其中只有 AWAvenue 依赖 `resource_parser_url`；规则总量约 **5.9 万条**（停用 Privacy 后；AdvertisingLite 38,066 占大头）。
 
 ### 关键依赖：资源解析器
 
@@ -189,6 +191,14 @@ QX 会校验配置文件里各段落是否齐全，**空段落也必须存在**�
 
 **IPv6 站点打不开**
 先看节点是否支持 IPv6（机场的事）。配置层面已就绪：`[dns]` 有 IPv6 上游、AAAA 未禁用、本地 IPv6 段走直连。但注意 `geoip, cn` 只对 IPv4 生效，国内 IPv6 目标会走代理而不是直连。
+
+**为什么 `苹果服务` 组的 `direct` 排第一**
+QX 的 `static` 组按顺序取第一个可用项。原来 `direct` 在最后，等于 App Store 下载、iCloud 照片同步、系统更新**全部走香港节点**——下载变慢、节点流量翻倍。现在 `direct` 提到首位，只有直连不可用时才回落节点。
+
+**MITM 名单里有银行和政务域名，会不会出问题**
+会。黑猫那份重写模块的 582 个 MITM 域名里包含 12 个银行/券商（`mbs.boc.cn`、`creditcardapp.bankcomm.cn`、`m.stock.pingan.com`、`v.icbc.com.cn`、`lban.spdb.com.cn` 等）、3 个政务民生（`fuwu.nhsa.gov.cn` 国家医保、`gab.122.gov.cn` 交管12123、`chaoxing.com`），以及微信/淘宝/京东/拼多多/小红书的主链路域名。
+这些域名一旦启用证书 pinning，MITM 就会失败，表现为**「微信里打开某个医保/银行页面白屏」而其他一切正常**——极难归因到代理。
+遇到这类白屏，先按顺序注释：`黑猫去广告` → `墨鱼去开屏`。另外该名单里还有 19 条中缀通配写法（`ad*.sina.com` 这类）在 QX 里无效，2 个裸 IP 也无效。
 
 ## 来源与致谢
 
