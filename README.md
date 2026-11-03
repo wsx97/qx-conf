@@ -34,7 +34,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | `[general]` | `resource_parser_url` 解析器、探测网址、DNS 排除项、`udp_drop_list = 443` |
 | `[dns]` | 国内 Do53 服务器 + `circumvent-ipv4-answer`（屏蔽运营商插广告的那批 IP） |
 | `[policy]` | 按地区拆分的策略组：香港 / 台湾 / 日本 / 狮城 / 美国节点，外加全球加速、苹果服务、港台番剧、国际媒体、电报代理、黑白名单 |
-| `[filter_remote]` | 11 个 ConnersHua/RuleGo 的 Surge 规则集（`opt-parser=true`）+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，承担广告拦截主责）+ 1 个 zqzess 的番茄小说 `.snippet`（29 条）+ 217heidai 的 `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 的广告 SDK 列表（665 条，需 opt-parser） |
+| `[filter_remote]` | **4 个** ConnersHua/RuleGo 的 Surge 规则集（`opt-parser=true`）+ **7 个 blackmatrix7 QX 原生列表**+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，承担广告拦截主责）+ 1 个 zqzess 的番茄小说 `.snippet`（29 条）+ 217heidai 的 `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 的广告 SDK 列表（665 条，需 opt-parser） |
 | `[rewrite_remote]` | 黑猫去广告、墨鱼去开屏、番茄小说、+ 5 个 App 专项（喜马拉雅 / 大众点评 / 小红书 / 字节系 / 网易云） |
 | `[filter_local]` | 局域网 / `.local` 直连 + `geoip, cn, direct` + `final, 黑白名单` |
 
@@ -63,6 +63,30 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | AWAvenue `-Only.Ads`（665 条） | 广告 SDK / 联盟端点 | 约 2 周 |
 
 三者去重后约 46,000 条，仍比黑猫全量轻一个数量级。**停任何一层都不至于全瘫**，这是刻意的冗余设计。
+
+### 分流层的第三次调整（2026-11-03）
+
+把 7 条 ConnersHua 的 Surge 规则集换成了 blackmatrix7 的 QX 原生列表，**tag 与 force-policy 全部保持不变**，因此 12 个策略组照旧有规则投喂、任何一条都能单独回滚。
+
+| 策略组 | 旧（ConnersHua） | 新（blackmatrix7） | 规则数 |
+|---|---|---|---|
+| 海外抖音 | TikTok.list | TikTok.list | 35 |
+| 电报代理 | Telegram.list | Telegram.list | 40 |
+| 国际媒体 | !CN.list | GlobalMedia.list | 2341 |
+| 港台番剧 | CN.list | BiliBili.list | 127 |
+| 全球加速 | Proxy.list | Proxy.list | 7502 |
+| 苹果服务 | Apple.list | Apple.list | 1880 |
+| 国内网站 | Direct.list | Direct.list | 232 |
+
+**保留在 ConnersHua 的 4 条**：`Direct+`（直连修正表，语义是"优先直连"而非分类，无等价物）、`Tracking`（黑猫的等价表是 EasyPrivacy 派生，39,936 条，口径完全不同）、`AI`（黑猫拆成 4 个文件且更旧）、`WeChat`（黑猫版丢掉了 17 条腾讯云新加坡 IP，海外语音可能变慢）。
+
+**结果**：依赖 `opt-parser` 的条目从 12 降到 **5**（4 条 ConnersHua + AWAvenue），解析器仍然保留但不再是"全站分流单点"——它挂掉时损失的是这 5 条，而不是全部。
+
+**已知行为变化**（换了之后要留意）：
+- `国际媒体` 242 → 2,341 条，新增 918 条 `ip-cidr`。这些是按流媒体 CDN 汇总的 IP，**可能命中部分国内 CDN**，导致国内视频被送进国际媒体组。
+- `苹果服务` 20 → 1,880 条，含 `apple.com.cn`/`icloud.com.cn`；若该组首选项是境外节点，国区 iCloud 会绕出国。
+- `全球加速` 513 → 7,502 条，出口归属变化较大。
+- `港台番剧` 由 `CN.list` 换成 `BiliBili.list`，语义收窄——爱奇艺台湾站、芒果国际不再命中这个组。
 
 ### 关键依赖：资源解析器
 
@@ -95,7 +119,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | 所有远程地址加 `ghproxy.net` 前缀 | `raw.githubusercontent.com` 在国内经常连不上；把前缀删掉即回到官方地址 |
 | 保留 `udp_drop_list = 443` | 模板原样：丢掉 QUIC 后视频广告退回 TCP，重写才有机会命中；代价是首帧变慢，觉得卡就注释掉 |
 | 保留 `fallback_udp_policy = reject` | **比 `udp_drop_list` 更激进**：所有未被规则命中的 UDP 一律拒绝。语音/游戏 App 出现连不上时，先查这一条，再查 `udp_drop_list` |
-| 停用 ConnersHua 的 `Advertising.list` | 976 条规则、2023-11 停更；已由 blackmatrix7 的 Lite 版（38,066 条）取代，两套重叠没必要都跑 |
+| 停用 ConnersHua 的 `Advertising.list` | 976 条规则；已由 blackmatrix7 的 Lite 版（38,066 条）取代，两套重叠没必要都跑 |
 | 停用「神机去广告」 | 111 个 MITM 域名里 98 个（88.3%）已被黑猫声明，113 条规则里 83 条重复；且 2023-11 停更 |
 | 移除「油管去 Shorts」 | 该模块只是隐藏 YouTube 的 Shorts 入口，本身不拦广告；模块数从 4 降到 3 |
 | 移除「贴吧去广告」 | 只有 2 条规则 + 2 个脚本（含 97KB 的 protobuf 解析），上游 2026-03 停更；贴吧的开屏与 feed 广告已由黑猫 + 墨鱼覆盖，放弃的是列表页/信息流原生广告 |
@@ -122,7 +146,7 @@ curl -H "User-Agent: Quantumult%20X/1.5.0" https://ddgksf2013.top/rewrite/StartU
 见上面「节点命名」一节，改 `[policy]` 里的正则，或直接用「黑白名单」组。
 
 **广告还漏**
-广告拦截现在由 blackmatrix7 的 `AdvertisingLite.list` 主责（配置里 `tag=广告拦截Lite` 那一行）；ConnersHua 的 `Advertising.list` 已注释停用，只是留行备查。要换更勤的源，改 `tag=广告拦截Lite` 那一行即可。其余 ConnersHua 列表停更于 2023-11-11，覆盖面和时效性都不如现行源。
+广告拦截现在由 blackmatrix7 的 `AdvertisingLite.list` 主责（配置里 `tag=广告拦截Lite` 那一行）；ConnersHua 的 `Advertising.list` 已注释停用，只是留行备查。要换更勤的源，改 `tag=广告拦截Lite` 那一行即可。ConnersHua 仓库本身仍在维护（最后提交 2026-08-01），但其中 `CN.list` 与 `Apple.list` 停在 2023-11-11，已换成黑猫的 QX 原生表。
 
 **看视频变卡 / 某些站点打不开**
 多半是 `udp_drop_list = 443`，注释掉它试试。
@@ -131,7 +155,7 @@ curl -H "User-Agent: Quantumult%20X/1.5.0" https://ddgksf2013.top/rewrite/StartU
 先换镜像（把 `ghproxy.net` 换成 `gh-proxy.com` 或 `ghfast.top`），国内拉取失败基本都是网络问题。
 
 **广告拦截用的是哪套**
-现在是 blackmatrix7 的 `AdvertisingLite.list`（38,066 条）主责。ConnersHua 的 `Advertising.list`（976 条，2023-11 停更）已被注释停用，配置里留着一行备查——两者内容大量重叠，没必要同时跑。
+现在是 blackmatrix7 的 `AdvertisingLite.list`（38,066 条）主责。ConnersHua 的 `Advertising.list`（976 条）已被注释停用，配置里留着一行备查——两者内容大量重叠，没必要同时跑。
 
 隐私类域名仍由 ConnersHua 的 `Tracking.list`（90 条）负责，不影响。
 
