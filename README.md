@@ -190,7 +190,8 @@ curl -H "User-Agent: Quantumult%20X/1.5.0" https://ddgksf2013.top/rewrite/StartU
 ## 常见问题
 
 **导入后什么都没拦住**
-先确认 `resource_parser_url` 那一行在不在、解析器能不能下载。所有 Surge 格式的列表都靠它转换，缺了它等于没规则。
+按这个顺序查：① `[policy]` 的地区组是否为空（节点名不含 港/HK、美/US 等关键词时会空）；② `final` 是否指向真实存在的 `黑白名单` 组；③ 生效的远程列表是否拉下来了（QX →「配置文件」里看各资源的更新时间）。
+**不要**一上来怀疑解析器：全仓只有 1 条资源依赖 `resource_parser_url`（广告SDK 那 665 条），它挂了也只会少这一层。
 
 **地区策略组显示为空**
 见上面「节点命名」一节，改 `[policy]` 里的正则，或直接用「黑白名单」组。
@@ -207,7 +208,6 @@ curl -H "User-Agent: Quantumult%20X/1.5.0" https://ddgksf2013.top/rewrite/StartU
 **广告拦截用的是哪套**
 现在是 blackmatrix7 的 `AdvertisingLite.list`（38,066 条）主责。ConnersHua 的 `Advertising.list`（976 条）已被注释停用，配置里留着一行备查——两者内容大量重叠，没必要同时跑。
 
-隐私类域名仍由 ConnersHua 的 `Tracking.list`（90 条）负责，不影响。
 
 **开启后 MitM 域名很多**
 黑猫 582 个 + 墨鱼 437 个，**去重后约 726 个域名**会被解密（重复声明在 QX 里会归一，不会重复解密）。如果某个 App 白屏或加载卡住，按这个顺序关掉再试：黑猫去广告 → 墨鱼去开屏。另有番茄小说这个专项模块，带 8 个域名。
