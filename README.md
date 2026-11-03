@@ -44,7 +44,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 
 | 位置 | 内容 |
 |---|---|
-| `[dns]` | 除了 3 个 IPv4 上游，另加阿里 `2400:3200::1` 与 DNSPod `2402:4e00::` 两个 IPv6 上游 |
+| `[dns]` | 除了 3 个 IPv4 上游，另加阿里 `[2400:3200::1]:53` 与 DNSPod `[2402:4e00::]:53` 两个 IPv6 上游（**必须方括号+端口**，裸地址会被 QX 当成端口解析而报语法错误） |
 | `[filter_local]` | `::1/128`（环回）、`fe80::/10`（链路本地）、`fc00::/7`（内网 ULA）、`ff00::/8`（组播）全部直连 |
 | `[general]` | 没有写 `no-ipv6`，所以 AAAA 查询是放行的（QX 里 `no-ipv6` 会直接让 AAAA 失败） |
 
