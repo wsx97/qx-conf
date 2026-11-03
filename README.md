@@ -103,7 +103,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 
 **这是用新鲜度换解析器独立性**——Tracking 和 AI 两条换的是更旧的源，不是更优的源。四条旧行都在配置里注释保留，回滚只需去掉行首 `; `。
 
-**现状**：`[filter_remote]` 17 条生效，其中只有 AWAvenue 依赖 `resource_parser_url`；规则总量约 **5.9 万条**（停用 Privacy 后；AdvertisingLite 38,066 占大头）。
+**现状**：`[filter_remote]` **16 条**生效（停用 Privacy 后），其中只有 AWAvenue 依赖 `resource_parser_url`；规则总量约 **5.9 万条**（AdvertisingLite 38,066 占大头）。
 
 ### 关键依赖：资源解析器
 
