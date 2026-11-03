@@ -34,8 +34,8 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | `[general]` | `resource_parser_url` 解析器、探测网址、DNS 排除项、`udp_drop_list = 443` |
 | `[dns]` | 国内 Do53 服务器 + `circumvent-ipv4-answer`（屏蔽运营商插广告的那批 IP） |
 | `[policy]` | 按地区拆分的策略组：香港 / 台湾 / 日本 / 狮城 / 美国节点，外加全球加速、苹果服务、港台番剧、国际媒体、电报代理、黑白名单 |
-| `[filter_remote]` | 11 个 ConnersHua/RuleGo 的 Surge 规则集（`opt-parser=true`）+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，承担广告拦截主责）+ 1 个 zqzess 的番茄小说 `.snippet`（29 条域名 / IP 拦截） |
-| `[rewrite_remote]` | 黑猫去广告、墨鱼去开屏、番茄小说去广告 |
+| `[filter_remote]` | 11 个 ConnersHua/RuleGo 的 Surge 规则集（`opt-parser=true`）+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，承担广告拦截主责）+ 1 个 zqzess 的番茄小说 `.snippet`（29 条）+ 217heidai 的 `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 的广告 SDK 列表（665 条，需 opt-parser） |
+| `[rewrite_remote]` | 黑猫去广告、墨鱼去开屏、番茄小说、+ 5 个 App 专项（喜马拉雅 / 大众点评 / 小红书 / 字节系 / 网易云） |
 | `[filter_local]` | 局域网 / `.local` 直连 + `geoip, cn, direct` + `final, 黑白名单` |
 
 ### IPv6
@@ -51,6 +51,18 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 **一个必须知道的限制**：`geoip, cn, direct` 只对 **IPv4** 生效，QX 没有 IPv6 版的 geoip。所以国内 IPv6 目标不会命中「国内直连」，而是落到 `final` 走代理。想按国家分流 IPv6，得自己加运营商的 `ip6-cidr` 地址段（比如 `2408::/16`、`2409::/16` 这些），维护成本不低。
 
 另外，节点本身得支持 IPv6 才能访问 IPv6-only 站点——这是机场侧的事，配置改不了。
+
+### 分流层的三个来源（为什么要三份）
+
+主责的 blackmatrix7 `AdvertisingLite.list` **最后一次提交是 2025-12-21**——这份「Lite」构件其实已经被上游放了 10 个月（同仓库的全量版仍在每周重建，但 24 万条 / 12.5MB 太重）。所以现在分三层：
+
+| 源 | 作用 | 更新频率 |
+|---|---|---|
+| blackmatrix7 `AdvertisingLite`（38,066 条） | 基线，已知广告主 | 冻结（2025-12） |
+| 217heidai `adblockqxlite`（8,480 条） | 通用广告域名补充 | 每 8 小时 |
+| AWAvenue `-Only.Ads`（665 条） | 广告 SDK / 联盟端点 | 约 2 周 |
+
+三者去重后约 46,000 条，仍比黑猫全量轻一个数量级。**停任何一层都不至于全瘫**，这是刻意的冗余设计。
 
 ### 关键依赖：资源解析器
 
@@ -95,7 +107,8 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 判断这类地址是否有效，别用浏览器点开看，改用：
 
 ```bash
-curl -H "Accept: text/plain" https://ddgksf2013.top/rewrite/StartUpAds.conf | head
+# 关键是 UA，不是 Accept 头（只发 Accept 会被 302 到首页）
+curl -H "User-Agent: Quantumult%20X/1.5.0" https://ddgksf2013.top/rewrite/StartUpAds.conf | head
 ```
 
 返回以 `// ==UserScript==` 开头才是配置本体。
@@ -143,6 +156,9 @@ QX 会校验配置文件里各段落是否齐全，**空段落也必须存在**�
 - [Orz-3/QuantumultX](https://github.com/Orz-3/QuantumultX) — 配置模板
 - [ConnersHua/RuleGo](https://github.com/ConnersHua/RuleGo) — 分流规则集（其去广告模块已停用）
 - [zqzess/rule_for_quantumultX](https://github.com/zqzess/rule_for_quantumultX) — 番茄小说去广告（分流 + 重写两份）
+- [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) — 通用广告域名补充列表
+- [TG-Twilight/AWAvenue-Ads-Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule) — 广告 SDK 端点列表
+- [fmz200/wool_scripts](https://github.com/fmz200/wool_scripts) — 5 个 App 的专项去广告重写
 - [KOP-XIAO/QuantumultX](https://github.com/KOP-XIAO/QuantumultX) — 资源解析器
 - [ddgksf2013](https://ddgksf2013.top) — 墨鱼去开屏模块
 - [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) — 广告分流列表与 App 内广告重写
