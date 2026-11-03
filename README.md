@@ -6,7 +6,40 @@
 
 ---
 
-## 懒人配置链接
+## 两个版本
+
+仓库里有两份**互相独立**的配置，各自单独导入、互不依赖：
+
+| 文件 | 规模 | 适合谁 |
+|---|---|---|
+| `QuantumultX-lazy.conf` | 16 条分流 / 8 条重写 / 12 策略组；约 **5.9 万条**规则，MITM 约 770 域名 | 要覆盖面最大，不介意冷启动几秒 |
+| `QuantumultX-lite.conf` | 8 条分流 / 2 条重写 / 4 策略组；约 **1.07 万条**规则（−82%），MITM 约 726 域名，**零解析器依赖** | 要启动快、误伤少、内存低 |
+
+**精简版的取舍原则**：只删「删掉只是变慢」的列表，保留「删掉会直接功能失效」的。
+
+| 删掉 | 保留（硬依赖） |
+|---|---|
+| AdvertisingLite 38,066（占完整版规则 64%）、Proxy 7,502、GlobalMedia 2,341、BiliBili 127、Telegram 40、WeChat 43、AWAvenue 665、番茄小说 29 | AI 四表（砍掉 ChatGPT 会报"地区不支持"）、Apple（砍掉 App Store/iCloud 走节点）、TikTok、Direct、217heidai 广告表 |
+
+代价：广告拦截率从约 85% 降到 **60–70%**；流媒体不再分区。收益：规则量 −82%、远程资源 21 → 10、策略组 12 → 4、没有 `resource_parser_url` 这个启动失败点。
+
+> **两份不能同时启用**——QX 一次只加载一份配置，切换就是在「配置文件」里换文件。
+
+## 导入地址
+
+**完整版**
+
+```text
+https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/QuantumultX-lazy.conf
+```
+
+**极致精简版**
+
+```text
+https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/QuantumultX-lite.conf
+```
+
+## 完整版：懒人配置链接
 
 一条地址把整份配置加进 QX —— 分流规则、重写模块、策略组、DNS 设置全在里面：
 

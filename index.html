@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quantumult X 懒人配置</title>
+<title>Quantumult X 配置（完整版 / 精简版）</title>
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -16,67 +16,79 @@
     body { background: #0d1117; color: #e6edf3; }
     main { background: #161b22 !important; border-color: #30363d !important; }
     textarea { background: #0d1117 !important; border-color: #30363d !important; }
+    .card { border-color: #30363d !important; }
   }
-  main { width: 100%; max-width: 580px; background: #fff; border: 1px solid #e3e6ea; border-radius: 14px; padding: 28px 24px; }
+  main { width: 100%; max-width: 600px; background: #fff; border: 1px solid #e3e6ea; border-radius: 14px; padding: 26px 22px; }
   h1 { font-size: 20px; margin: 0 0 6px; }
   .hint { margin: 0 0 18px; color: #6b7280; font-size: 14px; }
   @media (prefers-color-scheme: dark) { .hint { color: #9aa4b2; } }
+  .card { border: 1px solid #e3e6ea; border-radius: 10px; padding: 14px; margin-bottom: 14px; }
+  .card h2 { font-size: 15px; margin: 0 0 4px; }
+  .card p { margin: 0 0 10px; font-size: 13px; color: #6b7280; }
+  @media (prefers-color-scheme: dark) { .card p { color: #9aa4b2; } }
   textarea {
-    width: 100%; height: 92px; font: 12px/1.5 ui-monospace, Menlo, monospace;
-    padding: 12px; border-radius: 10px; border: 1px solid #c8ced6; resize: vertical;
+    width: 100%; height: 64px; font: 12px/1.5 ui-monospace, Menlo, monospace;
+    padding: 10px; border-radius: 8px; border: 1px solid #c8ced6; resize: vertical;
     background: #fbfbfc; color: inherit; word-break: break-all;
   }
   button {
-    width: 100%; margin-top: 12px; padding: 13px 16px; font-size: 16px; font-weight: 600;
-    border-radius: 10px; border: 1px solid transparent; background: #0b7a4b; color: #fff; cursor: pointer;
+    width: 100%; margin-top: 10px; padding: 12px 14px; font-size: 15px; font-weight: 600;
+    border-radius: 9px; border: 1px solid transparent; background: #0b7a4b; color: #fff; cursor: pointer;
   }
+  button.secondary { background: transparent; color: inherit; border-color: #c8ced6; }
+  @media (prefers-color-scheme: dark) { button.secondary { border-color: #30363d; } }
   button:active { transform: translateY(1px); }
   .copied { font-weight: 500; font-size: 13px; margin-left: 8px; }
-  ol { padding-left: 20px; font-size: 14px; color: #4b5563; margin: 20px 0 0; }
+  ol { padding-left: 20px; font-size: 14px; color: #4b5563; margin: 16px 0 0; }
   @media (prefers-color-scheme: dark) { ol { color: #9aa4b2; } }
-  ol b { color: inherit; }
-  .note { margin-top: 18px; padding-top: 16px; border-top: 1px solid #e3e6ea; font-size: 13px; color: #6b7280; }
-  @media (prefers-color-scheme: dark) { .note { border-color: #30363d; color: #9aa4b2; } }
   .foot { margin: 18px 0 0; font-size: 13px; }
   a { color: #0b7a4b; }
 </style>
 </head>
 <body>
 <main>
-  <h1>Quantumult X 懒人配置</h1>
-  <p class="hint">复制下面的地址，粘到 Quantumult X 里即可导入整份配置（分流 + 重写 + 策略组 + DNS）。</p>
+  <h1>Quantumult X 配置</h1>
+  <p class="hint">两个版本，各自单独导入，别同时启用。复制地址后到 QX →「配置文件」→ 右上角「+」→ 添加远程配置。</p>
 
-  <textarea id="url" readonly spellcheck="false">https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/QuantumultX-lazy.conf</textarea>
-  <button id="cp">复制配置地址 <span class="copied" id="msg"></span></button>
+  <div class="card">
+    <h2>完整版</h2>
+    <p>约 5.9 万条规则 / 8 个重写模块 / 12 策略组。覆盖面最大，冷启动几秒。</p>
+    <textarea id="full" readonly spellcheck="false">https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/QuantumultX-lazy.conf</textarea>
+    <button data-copy="full">复制完整版地址 <span class="copied" id="msg1"></span></button>
+  </div>
+
+  <div class="card">
+    <h2>极致精简版</h2>
+    <p>约 1.07 万条规则（−82%）/ 2 个重写模块 / 4 策略组 / 零解析器依赖。启动快、误伤少，广告拦截约 60–70%。</p>
+    <textarea id="lite" readonly spellcheck="false">https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/QuantumultX-lite.conf</textarea>
+    <button class="secondary" data-copy="lite">复制精简版地址 <span class="copied" id="msg2"></span></button>
+  </div>
 
   <ol>
-    <li>点上面的按钮复制地址</li>
+    <li>复制对应版本的地址</li>
     <li>QX → <b>配置文件</b> → 右上角「+」→ 添加远程配置 → 粘贴 → 确认</li>
-    <li>QX → <b>服务器</b> → 添加你自己的机场订阅（订阅不在本仓库里，需自备）</li>
+    <li>QX → <b>服务器</b> → 添加你自己的机场订阅（订阅不在本仓库，需自备）</li>
     <li>回首页把策略组切到「黑白名单」或对应地区组，打开开关</li>
   </ol>
-
-  <p class="note">
-    为什么订阅要单独加：配置里的 <code>[server_remote]</code> 只留了占位注释，把私人订阅写进公开仓库既会泄露、也会在更新时被覆盖。
-    QX「服务器」页添加的节点会自动进入 <code>[policy]</code> 的地区策略组（靠节点名里的 港/HK、台/TW、日/JP、坡/SG、美/US 等关键词匹配）。
-  </p>
 
   <p class="foot"><a href="https://github.com/wsx97/qx-conf">← 查看仓库说明</a></p>
 </main>
 <script>
-  var ta = document.getElementById('url');
-  var msg = document.getElementById('msg');
-  ta.addEventListener('focus', function () { ta.select(); });
-
-  document.getElementById('cp').addEventListener('click', function () {
-    function done() { msg.textContent = '已复制'; setTimeout(function () { msg.textContent = ''; }, 2000); }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(ta.value).then(done, fallback);
-    } else { fallback(); }
-    function fallback() {
-      ta.focus(); ta.select();
-      try { document.execCommand('copy'); done(); } catch (e) { msg.textContent = '请手动全选复制'; }
-    }
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    var id = btn.getAttribute('data-copy');
+    var ta = document.getElementById(id);
+    var msg = btn.querySelector('.copied');
+    ta.addEventListener('focus', function () { ta.select(); });
+    btn.addEventListener('click', function () {
+      function done() { msg.textContent = '已复制'; setTimeout(function () { msg.textContent = ''; }, 2000); }
+      function fallback() {
+        ta.focus(); ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) { msg.textContent = '请手动全选复制'; }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(ta.value).then(done, fallback);
+      } else { fallback(); }
+    });
   });
 </script>
 </body>
