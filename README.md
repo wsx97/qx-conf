@@ -34,7 +34,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | `[general]` | `resource_parser_url` 解析器、探测网址、DNS 排除项、`udp_drop_list = 443` |
 | `[dns]` | 国内 Do53 服务器 + `circumvent-ipv4-answer`（屏蔽运营商插广告的那批 IP） |
 | `[policy]` | 按地区拆分的策略组：香港 / 台湾 / 日本 / 狮城 / 美国节点，外加全球加速、苹果服务、港台番剧、国际媒体、电报代理、黑白名单 |
-| `[filter_remote]` | **4 个** ConnersHua/RuleGo 的 Surge 规则集（`opt-parser=true`）+ **7 个 blackmatrix7 QX 原生列表**+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，承担广告拦截主责）+ 1 个 zqzess 的番茄小说 `.snippet`（29 条）+ 217heidai 的 `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 的广告 SDK 列表（665 条，需 opt-parser） |
+| `[filter_remote]` | **11 个 blackmatrix7 QX 原生列表**（含 Privacy / 4×AI / WeChat）+ **1 个 AWAvenue**（`opt-parser=true`）+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，承担广告拦截主责）+ 1 个 zqzess 的番茄小说 `.snippet`（29 条）+ 217heidai 的 `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 的广告 SDK 列表（665 条，需 opt-parser） |
 | `[rewrite_remote]` | 黑猫去广告、墨鱼去开屏、番茄小说、+ 5 个 App 专项（喜马拉雅 / 大众点评 / 小红书 / 字节系 / 网易云） |
 | `[filter_local]` | 局域网 / `.local` 直连 + `geoip, cn, direct` + `final, 黑白名单` |
 
@@ -87,6 +87,21 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 - `苹果服务` 20 → 1,880 条，含 `apple.com.cn`/`icloud.com.cn`；若该组首选项是境外节点，国区 iCloud 会绕出国。
 - `全球加速` 513 → 7,502 条，出口归属变化较大。
 - `港台番剧` 由 `CN.list` 换成 `BiliBili.list`，语义收窄——爱奇艺台湾站、芒果国际不再命中这个组。
+
+### 第四次调整：彻底摘掉 ConnersHua（2026-11-03）
+
+`opt-parser` 从 5 条降到 **1 条**（只剩 AWAvenue 是 Surge 语法，无法回避）。最后 4 条 ConnersHua 的处理：
+
+| 原条目 | 处理 | 代价 |
+|---|---|---|
+| `Direct+`（21 条） | 21 条规则**搬进 `[filter_local]`**，保持 direct | 依赖「本地规则先于远程匹配」，该顺序未实测 |
+| `Tracking`（90 条，2026-06） | 换成黑猫 `Privacy.list`（**39,936 条**，2025-12） | 覆盖面大 444 倍且更旧，EasyPrivacy 含大量埋点/CDN，误杀面明显变大 |
+| `AI`（74 条，2026-07） | 换成黑猫 4 个列表（102 条，**2025-06**） | **更旧**，且 1 条变 4 条 |
+| `WeChat`（18 条含 17 个 IP） | 换成黑猫 `WeChat.list`（43 条纯域名，2025-06） | 丢掉腾讯云新加坡段 17 个 IP，海外语音/视频可能变慢 |
+
+**这是用新鲜度换解析器独立性**——Tracking 和 AI 两条换的是更旧的源，不是更优的源。四条旧行都在配置里注释保留，回滚只需去掉行首 `; `。
+
+**现状**：`[filter_remote]` 17 条生效，其中只有 AWAvenue 依赖 `resource_parser_url`；规则总量约 9.9 万条（AdvertisingLite 38,066 + Privacy 39,936 两项就占 78,002）。
 
 ### 关键依赖：资源解析器
 
