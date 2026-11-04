@@ -37,6 +37,7 @@
 | IPv6 DNS 上游 | 2 条（方括号写法） | 无 |
 | `resource_parser_url` | 有（仅 1 条资源依赖） | 无 |
 | `udp_drop_list` / `fallback_udp_policy` | 两条都有 | 两条都有 |
+| `geoip, cn, direct` | **已停用**（注释留档；本地优先会抢跑广告表） | **已停用** |
 | `final` | `黑白名单`（组内带 proxy/direct 兜底） | 同左 |
 
 > ⚠️ **上游新鲜度（重要）**：拦截实效目前主要靠 **217heidai `adblockqxlite`（每 8 小时重建）** 与 **AWAvenue（2026-10 更新）** 撑着。承载「基线」的 blackmatrix7 `AdvertisingLite.list` 和 `Advertising.conf` 都冻结在 **2025-12-21**，已 10 个月未更新。规则看着有 5.9 万条，但其中 38,066 条来自那张冻结表——**拦截率由新鲜度决定，不是数量**。详见下方「分流层的三个来源」。
@@ -86,7 +87,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | `[policy]` | 完整版 13 个组、精简版 5 个组；按地区拆分（香港 / 台湾 / 日本 / 狮城 / 美国节点）+ 全球加速 / 苹果服务 / 港台番剧 / 国际媒体 / 电报代理 / 黑白名单 / 特殊节点 / **美国出口**（`available` 组的 static 兜底包装） |
 | `[filter_remote]` | 完整版 16 条生效：blackmatrix7 的分类表（Direct / WeChat / 4×AI / TikTok / Telegram / GlobalMedia / BiliBili / Proxy / Apple / AdvertisingLite）+ 217heidai `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 广告 SDK（665 条，`opt-parser=true`）+ 番茄小说 `.snippet`（29 条）。`Privacy.list` 已注释停用。精简版只留其中 8 条 |
 | `[rewrite_remote]` | 完整版 5 条：黑猫去广告、墨鱼去开屏、番茄小说去广告 + 2 个 App 专项（字节系 / 小红书）；喜马拉雅 / 大众点评 / 网易云已关闭（留行备查）。精简版只留黑猫 + 墨鱼 2 条 |
-| `[filter_local]` | 局域网 / `.local` 直连 + `geoip, cn, direct` + `final, 黑白名单` |
+| `[filter_local]` | 21 条精确直连修正 + 局域网 / `.local` + IPv6 私有段直连 + `final, 黑白名单`；**`geoip, cn, direct` 已停用** |
 
 ### IPv6
 
@@ -98,7 +99,14 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | `[filter_local]` | `::1/128`（环回）、`fe80::/10`（链路本地）、`fc00::/7`（内网 ULA）、`ff00::/8`（组播）全部直连 |
 | `[general]` | 没有写 `no-ipv6`，所以 AAAA 查询是放行的（QX 里 `no-ipv6` 会直接让 AAAA 失败） |
 
-**一个必须知道的限制**：`geoip, cn, direct` 只对 **IPv4** 生效，QX 没有 IPv6 版的 geoip。所以国内 IPv6 目标不会命中「国内直连」，而是落到 `final` 走代理。想按国家分流 IPv6，得自己加运营商的 `ip6-cidr` 地址段（比如 `2408::/16`、`2409::/16` 这些），维护成本不低。
+**求值顺序（已实测，2026-11-04）**：在 QX「网络活动」里做了两次观测：
+
+1. `vi.l.qq.com`（本地 `host,...,direct` 规则与远程广告表 `reject` 规则同时覆盖）→ 判为 **`direct`**，确认**本地规则优先于远程规则**。由此 21 条直连修正生效。
+2. **决定性复测**：换用**不在 21 条直连修正名单里、但明确被远程广告表 `reject`、且解析到国内 IP** 的域名（如 `ad.maoyan.com` / `ad.cctv.com` 这类），日志**仍判为 `direct`** → 排除了 host 规则，坐实是 **`geoip, cn, direct` 抢在所有远程 reject 表之前**命中。也就是说「国内广告域名被放行」不是推断，而是实测事实。
+
+**修复**：两版都已把 `geoip, cn, direct` **注释停用**（保留回滚行）。国内直连改由远程 `Direct.list`（232 条）+ 21 条精确直连修正承担；个别不在其中的国内长尾站会走 `final`（能通、略慢）。这是「不依赖未决顺序假设」的稳妥改法——无论本地还是远程优先，广告 reject 表都不会再被一条对所有国内 IP 通吃的兜底直连抢跑。
+
+**IPv6 的遗留限制**：QX 没有 IPv6 版 geoip，即使恢复 `geoip,cn` 也只对 **IPv4** 生效；国内 IPv6 目标会落到 `final` 走代理。想按国家分流 IPv6，得自己加运营商 `ip6-cidr` 段（如 `2408::/16`、`2409::/16`），维护成本不低，本项目刻意不做。
 
 另外，节点本身得支持 IPv6 才能访问 IPv6-only 站点——这是机场侧的事，配置改不了。
 
@@ -146,7 +154,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 
 | 原条目 | 处理 | 代价 |
 |---|---|---|
-| `Direct+`（21 条） | 21 条规则**搬进 `[filter_local]`**，保持 direct | 依赖「本地规则先于远程匹配」，该顺序未实测 |
+| `Direct+`（21 条） | 21 条规则**搬进 `[filter_local]`**，保持 direct | 该顺序已于 2026-11-04 实测确认（本地优先）；并据此停用了会抢跑的 `geoip,cn` |
 | `Tracking`（90 条，2026-06） | ~~换成黑猫 `Privacy.list`~~ → **已停用**（误伤面过大，见下） | 覆盖面大 444 倍且更旧，EasyPrivacy 含大量埋点/CDN，误杀面明显变大 |
 | `AI`（74 条，2026-07） | 换成黑猫 4 个列表（102 条，**2025-06**） | **更旧**，且 1 条变 4 条 |
 | `WeChat`（18 条含 17 个 IP） | 换成黑猫 `WeChat.list`（43 条纯域名，2025-06） | 丢掉腾讯云新加坡段 17 个 IP，海外语音/视频可能变慢 |
@@ -209,7 +217,7 @@ curl -H "User-Agent: Quantumult%20X/1.5.0" https://ddgksf2013.top/rewrite/StartU
 ## 常见问题
 
 **导入后什么都没拦住**
-按这个顺序查：① `[policy]` 的地区组是否为空（节点名不含 港/HK、美/US 等关键词时会空）；② 生效的远程列表是否拉下来了（QX →「配置文件」里看各资源的更新时间）；③ **完整版**才需检查 `resource_parser_url`，它只影响广告 SDK 那 665 条。**精简版没有解析器，不要在这一步浪费时间**。另注：`final → 黑白名单` 在两版里都指向真实存在、且带 `proxy/direct` 兜底的组，几乎不会是故障原因。
+按这个顺序查：① `[policy]` 的地区组是否为空（节点名不含 港/HK、美/US 等关键词时会空）；② 生效的远程列表是否拉下来了（QX →「配置文件」里看各资源的更新时间）；③ **完整版**才需检查 `resource_parser_url`，它只影响广告 SDK 那 665 条。**精简版没有解析器，不要在这一步浪费时间**。另注：`final → 黑白名单` 两版都指向真实存在、带 `proxy/direct` 兜底的组；`geoip, cn` 已于 2026-11-04 停用，不再是国内广告漏拦的原因。
 
 **地区策略组显示为空**
 见上面「节点命名」一节，改 `[policy]` 里的正则，或直接用「黑白名单」组。
