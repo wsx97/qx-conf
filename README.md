@@ -12,8 +12,8 @@
 
 | 文件 | 规模 | 适合谁 |
 |---|---|---|
-| `QuantumultX-lazy.conf` | **16 条分流 / 5 条重写 / 13 策略组**；约 **5.9 万条**规则，MITM 约 770 域名，含 1 条解析器依赖 | 要覆盖面最大，不介意冷启动几秒 |
-| `QuantumultX-lite.conf` | **8 条分流 / 2 条重写 / 5 策略组**；约 **1.07 万条**规则（−82%），MITM 约 726 域名，**零解析器依赖** | 要启动快、误伤少、内存低 |
+| `QuantumultX-lazy.conf` | **17 条分流 / 5 条重写 / 13 策略组**；约 **7.9 万条**规则，MITM 约 770 域名，含 1 条解析器依赖 | 要覆盖面最大，不介意冷启动几秒 |
+| `QuantumultX-lite.conf` | **9 条分流 / 2 条重写 / 5 策略组**；约 **1.46 万条**规则（−81%），MITM 约 726 域名，**零解析器依赖** | 要启动快、误伤少、内存低 |
 
 **精简版的取舍原则**：只删「删掉只是变慢」的列表，保留「删掉会直接功能失效」的。
 
@@ -21,7 +21,7 @@
 |---|---|
 | AdvertisingLite 38,066（占完整版规则 64%）、Proxy 7,502、GlobalMedia 2,341、BiliBili 127、Telegram 40、WeChat 43、AWAvenue 665、番茄小说 29 | AI 四表（砍掉 ChatGPT 会报"地区不支持"）、Apple（砍掉 App Store/iCloud 走节点）、TikTok、Direct、217heidai 广告表 |
 
-代价：广告拦截率从约 85% 降到 **60–70%**；流媒体不再分区。收益：规则量 −82%、远程资源 21 → 10、策略组 13 → 5、没有 `resource_parser_url` 这个启动失败点。
+代价：广告拦截率从约 85% 降到 **60–70%**；流媒体不再分区。收益：规则量 −81%、远程资源 22 → 11、策略组 13 → 5、没有 `resource_parser_url` 这个启动失败点。
 
 > **两份不能同时启用**——QX 一次只加载一份配置，切换就是在「配置文件」里换文件。
 
@@ -29,7 +29,7 @@
 
 | 项 | 完整版 | 精简版 |
 |---|---|---|
-| `[filter_remote]` 生效 | 16 条 | 8 条 |
+| `[filter_remote]` 生效 | 17 条 | 9 条 |
 | `[rewrite_remote]` 生效 | 5 条 | 2 条 |
 | `[policy]` 组 | 13 个 | 5 个 |
 | `[filter_local]` | 34 条（含 21 条直连修正） | 34 条（相同） |
@@ -38,6 +38,7 @@
 | `resource_parser_url` | 有（仅 1 条资源依赖） | 无 |
 | `udp_drop_list` / `fallback_udp_policy` | 两条都有 | 两条都有 |
 | `geoip, cn, direct` | **已停用**（注释留档；本地优先会抢跑广告表） | **已停用** |
+| 国内 IP 直连 | `ChinaIPs`（19,619 条，含 IPv6；放在所有 reject 表之后） | `ChinaIPsBGP`（3,916 条） |
 | `final` | `黑白名单`（组内带 proxy/direct 兜底） | 同左 |
 
 > ⚠️ **上游新鲜度（重要）**：拦截实效目前主要靠 **217heidai `adblockqxlite`（每 8 小时重建）** 与 **AWAvenue（2026-10 更新）** 撑着。承载「基线」的 blackmatrix7 `AdvertisingLite.list` 和 `Advertising.conf` 都冻结在 **2025-12-21**，已 10 个月未更新。规则看着有 5.9 万条，但其中 38,066 条来自那张冻结表——**拦截率由新鲜度决定，不是数量**。详见下方「分流层的三个来源」。
@@ -85,7 +86,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | `[general]` | `resource_parser_url` 解析器（仅完整版）、探测网址、DNS 排除项、`udp_drop_list = 443`、`fallback_udp_policy = reject`（比前者更激进） |
 | `[dns]` | 国内 Do53 服务器 + `circumvent-ipv4-answer`（屏蔽运营商插广告的那批 IP） |
 | `[policy]` | 完整版 13 个组、精简版 5 个组；按地区拆分（香港 / 台湾 / 日本 / 狮城 / 美国节点）+ 全球加速 / 苹果服务 / 港台番剧 / 国际媒体 / 电报代理 / 黑白名单 / 特殊节点 / **美国出口**（`available` 组的 static 兜底包装） |
-| `[filter_remote]` | 完整版 16 条生效：blackmatrix7 的分类表（Direct / WeChat / 4×AI / TikTok / Telegram / GlobalMedia / BiliBili / Proxy / Apple / AdvertisingLite）+ 217heidai `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 广告 SDK（665 条，`opt-parser=true`）+ 番茄小说 `.snippet`（29 条）。`Privacy.list` 已注释停用。精简版只留其中 8 条 |
+| `[filter_remote]` | 完整版 17 条生效：blackmatrix7 的分类表（Direct / WeChat / 4×AI / TikTok / Telegram / GlobalMedia / BiliBili / Proxy / Apple / AdvertisingLite）+ 217heidai `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 广告 SDK（665 条，`opt-parser=true`）+ 番茄小说 `.snippet`（29 条）。`Privacy.list` 已注释停用。精简版只留其中 8 条 |
 | `[rewrite_remote]` | 完整版 5 条：黑猫去广告、墨鱼去开屏、番茄小说去广告 + 2 个 App 专项（字节系 / 小红书）；喜马拉雅 / 大众点评 / 网易云已关闭（留行备查）。精简版只留黑猫 + 墨鱼 2 条 |
 | `[filter_local]` | 21 条精确直连修正 + 局域网 / `.local` + IPv6 私有段直连 + `final, 黑白名单`；**`geoip, cn, direct` 已停用** |
 
@@ -104,7 +105,12 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 1. `vi.l.qq.com`（本地 `host,...,direct` 规则与远程广告表 `reject` 规则同时覆盖）→ 判为 **`direct`**，确认**本地规则优先于远程规则**。由此 21 条直连修正生效。
 2. **决定性复测**：换用**不在 21 条直连修正名单里、但明确被远程广告表 `reject`、且解析到国内 IP** 的域名（如 `ad.maoyan.com` / `ad.cctv.com` 这类），日志**仍判为 `direct`** → 排除了 host 规则，坐实是 **`geoip, cn, direct` 抢在所有远程 reject 表之前**命中。也就是说「国内广告域名被放行」不是推断，而是实测事实。
 
-**修复**：两版都已把 `geoip, cn, direct` **注释停用**（保留回滚行）。国内直连改由远程 `Direct.list`（232 条）+ 21 条精确直连修正承担；个别不在其中的国内长尾站会走 `final`（能通、略慢）。这是「不依赖未决顺序假设」的稳妥改法——无论本地还是远程优先，广告 reject 表都不会再被一条对所有国内 IP 通吃的兜底直连抢跑。
+**修复分两步**：
+
+1. 两版都把 `[filter_local]` 里的 `geoip, cn, direct` **注释停用**（保留回滚行），否则它会抢在所有远程 reject 表之前，把国内广告域名放行。
+2. 国内直连改用 `[filter_remote]` 里的 **`ChinaIPs`（完整版，19,619 条）/ `ChinaIPsBGP`（精简版，3,916 条）**，并且**放在所有 reject 表的末尾**——国内广告域名会先被广告表 reject，剩下的国内 IP 才走这条直连。
+
+这个顺序位置是关键：同样的「按 IP 判国内」，放在 `[filter_local]` 会吃掉广告，放在远程段末尾则不会。附带收益是 `ChinaIPs` 含 5,672 条 IPv6 段，**修好了 `geoip` 只覆盖 IPv4、国内 IPv6 被迫走代理的老问题**。
 
 **IPv6 的遗留限制**：QX 没有 IPv6 版 geoip，即使恢复 `geoip,cn` 也只对 **IPv4** 生效；国内 IPv6 目标会落到 `final` 走代理。想按国家分流 IPv6，得自己加运营商 `ip6-cidr` 段（如 `2408::/16`、`2409::/16`），维护成本不低，本项目刻意不做。
 
