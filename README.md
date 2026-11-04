@@ -13,7 +13,7 @@
 | 文件 | 规模 | 适合谁 |
 |---|---|---|
 | `QuantumultX-lazy.conf` | **17 条分流 / 5 条重写 / 13 策略组**；约 **7.9 万条**规则，MITM 约 770 域名，含 1 条解析器依赖 | 要覆盖面最大，不介意冷启动几秒 |
-| `QuantumultX-lite.conf` | **9 条分流 / 2 条重写 / 5 策略组**；约 **1.46 万条**规则（−81%），MITM 约 726 域名，**零解析器依赖** | 要启动快、误伤少、内存低 |
+| `QuantumultX-lite.conf` | **9 条分流 / 2 条重写 / 5 策略组**；约 **1.46 万条**规则（−81%），MITM 约 726 域名，含解析器配置但**暂无条目依赖它** | 要启动快、误伤少、内存低 |
 
 **精简版的取舍原则**：只删「删掉只是变慢」的列表，保留「删掉会直接功能失效」的。
 
@@ -21,7 +21,7 @@
 |---|---|
 | AdvertisingLite 38,066（占完整版规则 64%）、Proxy 7,502、GlobalMedia 2,341、BiliBili 127、Telegram 40、WeChat 43、AWAvenue 665、番茄小说 29 | AI 四表（砍掉 ChatGPT 会报"地区不支持"）、Apple（砍掉 App Store/iCloud 走节点）、TikTok、Direct、217heidai 广告表 |
 
-代价：广告拦截率从约 85% 降到 **60–70%**；流媒体不再分区。收益：规则量 −81%、远程资源 22 → 11、策略组 13 → 5、没有 `resource_parser_url` 这个启动失败点。
+代价：广告拦截率从约 85% 降到 **60–70%**；流媒体不再分区。收益：规则量 −81%、远程资源 22 → 11、策略组 13 → 5、没有 opt-parser 条目（列表全是 QX 原生，不依赖解析器转换）。
 
 > **两份不能同时启用**——QX 一次只加载一份配置，切换就是在「配置文件」里换文件。
 
@@ -35,7 +35,7 @@
 | `[filter_local]` | 34 条（含 21 条直连修正） | 34 条（相同） |
 | `[mitm]` 显式 hostname | 8 个（番茄小说补漏） | 0 |
 | IPv6 DNS 上游 | 2 条（方括号写法） | 无 |
-| `resource_parser_url` | 有（仅 1 条资源依赖） | 无 |
+| `resource_parser_url` | 有（1 条资源依赖：AWAvenue） | 有（但无条目依赖，暂不生效） |
 | `udp_drop_list` / `fallback_udp_policy` | 两条都有 | 两条都有 |
 | `geoip, cn, direct` | **已停用**（注释留档；本地优先会抢跑广告表） | **已停用** |
 | 国内 IP 直连 | `ChinaIPs`（19,619 条，含 IPv6；放在所有 reject 表之后） | `ChinaIPsBGP`（3,916 条） |
@@ -83,10 +83,10 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 
 | 段落 | 内容 |
 |---|---|
-| `[general]` | `resource_parser_url` 解析器（仅完整版）、探测网址、DNS 排除项、`udp_drop_list = 443`、`fallback_udp_policy = reject`（比前者更激进） |
+| `[general]` | `resource_parser_url` 解析器（**两版都有**）、探测网址、DNS 排除项、`udp_drop_list = 443`、`fallback_udp_policy = reject`（比前者更激进） |
 | `[dns]` | 国内 Do53 服务器 + `circumvent-ipv4-answer`（屏蔽运营商插广告的那批 IP） |
 | `[policy]` | 完整版 13 个组、精简版 5 个组；按地区拆分（香港 / 台湾 / 日本 / 狮城 / 美国节点）+ 全球加速 / 苹果服务 / 港台番剧 / 国际媒体 / 电报代理 / 黑白名单 / 特殊节点 / **美国出口**（`available` 组的 static 兜底包装） |
-| `[filter_remote]` | 完整版 17 条生效：blackmatrix7 的分类表（Direct / WeChat / 4×AI / TikTok / Telegram / GlobalMedia / BiliBili / Proxy / Apple / AdvertisingLite）+ 217heidai `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 广告 SDK（665 条，`opt-parser=true`）+ 番茄小说 `.snippet`（29 条）。`Privacy.list` 已注释停用。精简版只留其中 8 条 |
+| `[filter_remote]` | 完整版 17 条生效：blackmatrix7 的分类表（Direct / WeChat / 4×AI / TikTok / Telegram / GlobalMedia / BiliBili / Proxy / Apple / AdvertisingLite）+ 217heidai `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 广告 SDK（665 条，`opt-parser=true`）+ 番茄小说 `.snippet`（29 条）。`Privacy.list` 已注释停用。另有 `ChinaIPs`（国内 IP 直连）。精简版只留 9 条 |
 | `[rewrite_remote]` | 完整版 5 条：黑猫去广告、墨鱼去开屏、番茄小说去广告 + 2 个 App 专项（字节系 / 小红书）；喜马拉雅 / 大众点评 / 网易云已关闭（留行备查）。精简版只留黑猫 + 墨鱼 2 条 |
 | `[filter_local]` | 21 条精确直连修正 + 局域网 / `.local` + IPv6 私有段直连 + `final, 黑白名单`；**`geoip, cn, direct` 已停用** |
 
@@ -169,11 +169,20 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 
 **这是用新鲜度换解析器独立性**——Tracking 和 AI 两条换的是更旧的源，不是更优的源。四条旧行都在配置里注释保留，回滚只需去掉行首 `; `。
 
-**现状**：`[filter_remote]` **16 条**生效（停用 Privacy 后），其中只有 AWAvenue 依赖 `resource_parser_url`；规则总量约 **5.9 万条**（AdvertisingLite 38,066 占大头）。
+**现状**：`[filter_remote]` **17 条**生效（停用 Privacy 后），其中只有 AWAvenue 依赖 `resource_parser_url`；规则总量约 **7.9 万条**（AdvertisingLite 38,066 + ChinaIPs 19,619 占大头）。
 
 ### 关键依赖：资源解析器
 
-`resource_parser_url` 指向 KOP-XIAO 的 `resource-parser.js`（约 271KB），它在 QX 里把 **Surge / Loon 格式**的列表与模块就地转成 QX 格式。**仅完整版有这一行，且只有 1 条资源（广告 SDK 665 条）依赖它**；解析器挂掉只损失这一层，不会「全站瘫痪」。精简版没有解析器，也没有任何 `opt-parser` 条目。
+`resource_parser_url` 指向 KOP-XIAO 的 `resource-parser.js`（约 271KB），它在 QX 里把 **Surge / Loon 格式**的列表与模块就地转成 QX 格式。
+
+**两版都配置了这一行**，但实际依赖情况不同：
+
+| 版本 | `resource_parser_url` | `opt-parser=true` 条目 | 解析器挂掉的后果 |
+|---|---|---|---|
+| 完整版 | 有 | 1 条（AWAvenue 广告 SDK，665 条） | 只损失这一层，不会「全站瘫痪」 |
+| 精简版 | 有 | **0 条**（列表全是 QX 原生） | 无影响——这一行暂时不会被调用 |
+
+精简版保留这一行是为了以后能直接加 Surge 语法的列表（例如把 AWAvenue 665 条加回来）而不必再改配置。**注意**：只有标了 `opt-parser=true` 的条目才会真正触发转换。
 
 ### 节点命名会影响策略组
 
@@ -223,7 +232,7 @@ curl -H "User-Agent: Quantumult%20X/1.5.0" https://ddgksf2013.top/rewrite/StartU
 ## 常见问题
 
 **导入后什么都没拦住**
-按这个顺序查：① `[policy]` 的地区组是否为空（节点名不含 港/HK、美/US 等关键词时会空）；② 生效的远程列表是否拉下来了（QX →「配置文件」里看各资源的更新时间）；③ **完整版**才需检查 `resource_parser_url`，它只影响广告 SDK 那 665 条。**精简版没有解析器，不要在这一步浪费时间**。另注：`final → 黑白名单` 两版都指向真实存在、带 `proxy/direct` 兜底的组；`geoip, cn` 已于 2026-11-04 停用，不再是国内广告漏拦的原因。
+按这个顺序查：① `[policy]` 的地区组是否为空（节点名不含 港/HK、美/US 等关键词时会空）；② 生效的远程列表是否拉下来了（QX →「配置文件」里看各资源的更新时间）；③ `resource_parser_url` 只影响标了 `opt-parser=true` 的条目——完整版就 1 条（广告 SDK 665 条），精简版**一条都没有**，所以精简版不用查这一步。另注：`final → 黑白名单` 两版都指向真实存在、带 `proxy/direct` 兜底的组；`geoip, cn` 已于 2026-11-04 停用，不再是国内广告漏拦的原因。
 
 **地区策略组显示为空**
 见上面「节点命名」一节，改 `[policy]` 里的正则，或直接用「黑白名单」组。
