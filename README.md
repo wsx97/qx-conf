@@ -1,6 +1,6 @@
 # Quantumult X 配置（去广告向）
 
-基于 [Orz-3 的配置模板](https://github.com/Orz-3/QuantumultX) 重建的一份完整 QX 配置：**Surge 规则集 + 资源解析器**，去广告为主，国内直连，节点按地区分组。
+基于 [Orz-3 的配置模板](https://github.com/Orz-3/QuantumultX) 重建的 QX 配置，**以 QX 原生列表为主**，另有 1 条 Surge 语法列表靠资源解析器转换；去广告为主，国内直连，节点按地区分组。仓库现有**完整版**与**极致精简版**两份配置，见下。
 
 > 本仓库**不含任何节点、订阅链接或第三方规则正文**，全部以 URL 引用原作者仓库。你需要自备机场订阅。
 
@@ -12,8 +12,8 @@
 
 | 文件 | 规模 | 适合谁 |
 |---|---|---|
-| `QuantumultX-lazy.conf` | 16 条分流 / 8 条重写 / 12 策略组；约 **5.9 万条**规则，MITM 约 770 域名 | 要覆盖面最大，不介意冷启动几秒 |
-| `QuantumultX-lite.conf` | 8 条分流 / 2 条重写 / 4 策略组；约 **1.07 万条**规则（−82%），MITM 约 726 域名，**零解析器依赖** | 要启动快、误伤少、内存低 |
+| `QuantumultX-lazy.conf` | **16 条分流 / 5 条重写 / 13 策略组**；约 **5.9 万条**规则，MITM 约 770 域名，含 1 条解析器依赖 | 要覆盖面最大，不介意冷启动几秒 |
+| `QuantumultX-lite.conf` | **8 条分流 / 2 条重写 / 5 策略组**；约 **1.07 万条**规则（−82%），MITM 约 726 域名，**零解析器依赖** | 要启动快、误伤少、内存低 |
 
 **精简版的取舍原则**：只删「删掉只是变慢」的列表，保留「删掉会直接功能失效」的。
 
@@ -21,9 +21,26 @@
 |---|---|
 | AdvertisingLite 38,066（占完整版规则 64%）、Proxy 7,502、GlobalMedia 2,341、BiliBili 127、Telegram 40、WeChat 43、AWAvenue 665、番茄小说 29 | AI 四表（砍掉 ChatGPT 会报"地区不支持"）、Apple（砍掉 App Store/iCloud 走节点）、TikTok、Direct、217heidai 广告表 |
 
-代价：广告拦截率从约 85% 降到 **60–70%**；流媒体不再分区。收益：规则量 −82%、远程资源 21 → 10、策略组 12 → 4、没有 `resource_parser_url` 这个启动失败点。
+代价：广告拦截率从约 85% 降到 **60–70%**；流媒体不再分区。收益：规则量 −82%、远程资源 21 → 10、策略组 13 → 5、没有 `resource_parser_url` 这个启动失败点。
 
 > **两份不能同时启用**——QX 一次只加载一份配置，切换就是在「配置文件」里换文件。
+
+### 两版逐项对照（以文件实测为准）
+
+| 项 | 完整版 | 精简版 |
+|---|---|---|
+| `[filter_remote]` 生效 | 16 条 | 8 条 |
+| `[rewrite_remote]` 生效 | 5 条 | 2 条 |
+| `[policy]` 组 | 13 个 | 5 个 |
+| `[filter_local]` | 34 条（含 21 条直连修正） | 34 条（相同） |
+| `[mitm]` 显式 hostname | 8 个（番茄小说补漏） | 0 |
+| IPv6 DNS 上游 | 2 条（方括号写法） | 无 |
+| `resource_parser_url` | 有（仅 1 条资源依赖） | 无 |
+| `udp_drop_list` / `fallback_udp_policy` | 两条都有 | 两条都有 |
+| `final` | `黑白名单`（组内带 proxy/direct 兜底） | 同左 |
+
+> ⚠️ **上游新鲜度（重要）**：拦截实效目前主要靠 **217heidai `adblockqxlite`（每 8 小时重建）** 与 **AWAvenue（2026-10 更新）** 撑着。承载「基线」的 blackmatrix7 `AdvertisingLite.list` 和 `Advertising.conf` 都冻结在 **2025-12-21**，已 10 个月未更新。规则看着有 5.9 万条，但其中 38,066 条来自那张冻结表——**拦截率由新鲜度决定，不是数量**。详见下方「分流层的三个来源」。
+
 
 ## 导入地址
 
@@ -64,11 +81,11 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 
 | 段落 | 内容 |
 |---|---|
-| `[general]` | `resource_parser_url` 解析器、探测网址、DNS 排除项、`udp_drop_list = 443` |
+| `[general]` | `resource_parser_url` 解析器（仅完整版）、探测网址、DNS 排除项、`udp_drop_list = 443`、`fallback_udp_policy = reject`（比前者更激进） |
 | `[dns]` | 国内 Do53 服务器 + `circumvent-ipv4-answer`（屏蔽运营商插广告的那批 IP） |
-| `[policy]` | 按地区拆分的策略组：香港 / 台湾 / 日本 / 狮城 / 美国节点，外加全球加速、苹果服务、港台番剧、国际媒体、电报代理、黑白名单 |
-| `[filter_remote]` | **11 个 blackmatrix7 QX 原生列表**（含 Privacy / 4×AI / WeChat）+ **1 个 AWAvenue**（`opt-parser=true`）+ 1 个 blackmatrix7 的 `AdvertisingLite.list`（38,066 条，承担广告拦截主责）+ 1 个 zqzess 的番茄小说 `.snippet`（29 条）+ 217heidai 的 `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 的广告 SDK 列表（665 条，需 opt-parser） |
-| `[rewrite_remote]` | 黑猫去广告、墨鱼去开屏、番茄小说 + **2 个 App 专项**（字节系 / 小红书）；喜马拉雅 / 大众点评 / 网易云已按使用情况关闭（留行备查） |
+| `[policy]` | 完整版 13 个组、精简版 5 个组；按地区拆分（香港 / 台湾 / 日本 / 狮城 / 美国节点）+ 全球加速 / 苹果服务 / 港台番剧 / 国际媒体 / 电报代理 / 黑白名单 / 特殊节点 / **美国出口**（`available` 组的 static 兜底包装） |
+| `[filter_remote]` | 完整版 16 条生效：blackmatrix7 的分类表（Direct / WeChat / 4×AI / TikTok / Telegram / GlobalMedia / BiliBili / Proxy / Apple / AdvertisingLite）+ 217heidai `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 广告 SDK（665 条，`opt-parser=true`）+ 番茄小说 `.snippet`（29 条）。`Privacy.list` 已注释停用。精简版只留其中 8 条 |
+| `[rewrite_remote]` | 完整版 5 条：黑猫去广告、墨鱼去开屏、番茄小说去广告 + 2 个 App 专项（字节系 / 小红书）；喜马拉雅 / 大众点评 / 网易云已关闭（留行备查）。精简版只留黑猫 + 墨鱼 2 条 |
 | `[filter_local]` | 局域网 / `.local` 直连 + `geoip, cn, direct` + `final, 黑白名单` |
 
 ### IPv6
@@ -96,6 +113,8 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | AWAvenue `-Only.Ads`（665 条） | 广告 SDK / 联盟端点 | 约 2 周 |
 
 三者去重后约 46,000 条，仍比黑猫全量轻一个数量级。**停任何一层都不至于全瘫**，这是刻意的冗余设计。
+
+> **以下两节（第三次 / 第四次调整）是 2026-11-03 当天按时间顺序的两步改动，属于演进记录**。**后一节的结论覆盖前一节**：例如「保留在 ConnersHua 的 4 条」是第三次调整时的判断，第四次调整时已全部替换；`opt-parser` 条数也是先 12→5、再 5→1。两节的数字各自对应它当时的状态，不是互相矛盾的结论。**请以「现状」小节与配置文件本身为准。**
 
 ### 分流层的第三次调整（2026-11-03）
 
@@ -140,7 +159,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 
 ### 关键依赖：资源解析器
 
-`resource_parser_url` 指向 KOP-XIAO 的 `resource-parser.js`（约 271KB），它在 QX 里把 **Surge / Loon 格式**的列表与模块就地转成 QX 格式。这是这套配置能用社区最大一批规则的原因——但也意味着：**解析器拉不到，所有 `opt-parser=true` 的条目都会失效**。
+`resource_parser_url` 指向 KOP-XIAO 的 `resource-parser.js`（约 271KB），它在 QX 里把 **Surge / Loon 格式**的列表与模块就地转成 QX 格式。**仅完整版有这一行，且只有 1 条资源（广告 SDK 665 条）依赖它**；解析器挂掉只损失这一层，不会「全站瘫痪」。精简版没有解析器，也没有任何 `opt-parser` 条目。
 
 ### 节点命名会影响策略组
 
@@ -190,29 +209,28 @@ curl -H "User-Agent: Quantumult%20X/1.5.0" https://ddgksf2013.top/rewrite/StartU
 ## 常见问题
 
 **导入后什么都没拦住**
-按这个顺序查：① `[policy]` 的地区组是否为空（节点名不含 港/HK、美/US 等关键词时会空）；② `final` 是否指向真实存在的 `黑白名单` 组；③ 生效的远程列表是否拉下来了（QX →「配置文件」里看各资源的更新时间）。
-**不要**一上来怀疑解析器：全仓只有 1 条资源依赖 `resource_parser_url`（广告SDK 那 665 条），它挂了也只会少这一层。
+按这个顺序查：① `[policy]` 的地区组是否为空（节点名不含 港/HK、美/US 等关键词时会空）；② 生效的远程列表是否拉下来了（QX →「配置文件」里看各资源的更新时间）；③ **完整版**才需检查 `resource_parser_url`，它只影响广告 SDK 那 665 条。**精简版没有解析器，不要在这一步浪费时间**。另注：`final → 黑白名单` 在两版里都指向真实存在、且带 `proxy/direct` 兜底的组，几乎不会是故障原因。
 
 **地区策略组显示为空**
 见上面「节点命名」一节，改 `[policy]` 里的正则，或直接用「黑白名单」组。
 
 **广告还漏**
-广告拦截现在由 blackmatrix7 的 `AdvertisingLite.list` 主责（配置里 `tag=广告拦截Lite` 那一行）；ConnersHua 的 `Advertising.list` 已注释停用，只是留行备查。要换更勤的源，改 `tag=广告拦截Lite` 那一行即可。ConnersHua 仓库本身仍在维护（最后提交 2026-08-01），但其中 `CN.list` 与 `Apple.list` 停在 2023-11-11，已换成黑猫的 QX 原生表。
+广告拦截现在由 blackmatrix7 的 `AdvertisingLite.list` 主责（配置里 `tag=广告拦截Lite` 那一行）；ConnersHua 的 `Advertising.list` 已注释停用，只是留行备查。要换更勤的源，改 `tag=广告拦截Lite` 那一行即可。ConnersHua 仓库本身仍在维护（`master` 分支最后提交 2026-08-01，已用 GitHub API 复核），但其中 `CN.list` 与 `Apple.list` 停在 2023-11-11，已换成黑猫的 QX 原生表。⚠️ 该仓库**默认分支是西里尔字母伪装的 `maѕter`**（只有一条 2023 的空 README 提交），真实内容在 `master`；不指定 `sha=master` 查提交会误判成「2023 停更」。
 
 **看视频变卡 / 某些站点打不开**
-多半是 `udp_drop_list = 443`，注释掉它试试。
+两版都同时有 `udp_drop_list = 443` 和 **`fallback_udp_policy = reject`**（后者更激进：所有未匹配 UDP 一律拒）。先注释 `udp_drop_list`；若仍卡，再查 `fallback_udp_policy`，语音/游戏类 App 异常多与它有关。
 
 **规则不更新**
-先换镜像（把 `ghproxy.net` 换成 `gh-proxy.com` 或 `ghfast.top`），国内拉取失败基本都是网络问题。
+先换镜像（把 `ghproxy.net` 换成 `gh-proxy.com` 或 `ghfast.top`），国内拉取失败基本都是网络问题。⚠️ 这条只对带镜像前缀的 GitHub 源有效；**墨鱼 `ddgksf2013.top` 不走镜像**，它单独按 UA 做内容协商，排查方法见「一个容易误判的地方」。
 
 **广告拦截用的是哪套**
 现在是 blackmatrix7 的 `AdvertisingLite.list`（38,066 条）主责。ConnersHua 的 `Advertising.list`（976 条）已被注释停用，配置里留着一行备查——两者内容大量重叠，没必要同时跑。
 
 
 **开启后 MitM 域名很多**
-黑猫 582 个 + 墨鱼 437 个，**去重后约 726 个域名**会被解密（重复声明在 QX 里会归一，不会重复解密）。如果某个 App 白屏或加载卡住，按这个顺序关掉再试：黑猫去广告 → 墨鱼去开屏。另有番茄小说这个专项模块，带 8 个域名。
+黑猫 582 个 + 墨鱼 437 个，**去重后约 726 个域名**会被解密（重复声明在 QX 里会归一，不会重复解密）。此外完整版 `[mitm]` 里为番茄小说 `.qxrewrite` 补的 8 个域名已计入该模块，无需另算。如果某个 App 白屏或加载卡住，按这个顺序关掉再试：黑猫去广告 → 墨鱼去开屏。**精简版没有 `[mitm]` 显式声明**，只有黑猫 + 墨鱼两个模块自带的 hostname。
 
-**番茄小说那两条规则要都加吗**
+**番茄小说那两条规则要都加吗**（仅完整版；精简版不含番茄小说模块）
 要，而且必须分别放对位置：`.snippet` 是 **29 条域名 / IP 拦截规则**，属于分流层，进 `[filter_remote]`；`.qxrewrite` 是 **16 条接口改写 + 11 个 MITM 域名**，属于重写层，进 `[rewrite_remote]`。两者内容不重复，只加一个会漏掉另一半。
 
 > 小瑕疵一：`.snippet` 里有 3 条写成 `host, *xxx.com` 的规则，QX 的 `host` 不支持通配符，这几条大概率不生效。作者原文件如此，我没有改；想修就把 `host` 换成 `host-suffix`。
