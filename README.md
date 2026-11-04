@@ -12,7 +12,7 @@
 
 | 文件 | 规模 | 适合谁 |
 |---|---|---|
-| `QuantumultX-lazy.conf` | **17 条分流 / 5 条重写 / 13 策略组**；约 **7.9 万条**规则，MITM 约 770 域名，含 1 条解析器依赖 | 要覆盖面最大，不介意冷启动几秒 |
+| `QuantumultX-lazy.conf` | **18 条分流 / 5 条重写 / 13 策略组**；约 **8.2 万条**规则，MITM 约 770 域名，含 1 条解析器依赖 | 要覆盖面最大，不介意冷启动几秒 |
 | `QuantumultX-lite.conf` | **9 条分流 / 2 条重写 / 5 策略组**；约 **1.46 万条**规则（−81%），MITM 约 726 域名，含解析器配置但**暂无条目依赖它** | 要启动快、误伤少、内存低 |
 
 **精简版的取舍原则**：只删「删掉只是变慢」的列表，保留「删掉会直接功能失效」的。
@@ -29,7 +29,7 @@
 
 | 项 | 完整版 | 精简版 |
 |---|---|---|
-| `[filter_remote]` 生效 | 17 条 | 9 条 |
+| `[filter_remote]` 生效 | 18 条 | 9 条 |
 | `[rewrite_remote]` 生效 | 5 条 | 2 条 |
 | `[policy]` 组 | 13 个 | 5 个 |
 | `[filter_local]` | 34 条（含 21 条直连修正） | 34 条（相同） |
@@ -86,7 +86,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/wsx97/qx-conf/main/Quantum
 | `[general]` | `resource_parser_url` 解析器（**两版都有**）、探测网址、DNS 排除项、`udp_drop_list = 443`、`fallback_udp_policy = reject`（比前者更激进） |
 | `[dns]` | 国内 Do53 服务器 + `circumvent-ipv4-answer`（屏蔽运营商插广告的那批 IP） |
 | `[policy]` | 完整版 13 个组、精简版 5 个组；按地区拆分（香港 / 台湾 / 日本 / 狮城 / 美国节点）+ 全球加速 / 苹果服务 / 港台番剧 / 国际媒体 / 电报代理 / 黑白名单 / 特殊节点 / **美国出口**（`available` 组的 static 兜底包装） |
-| `[filter_remote]` | 完整版 17 条生效：blackmatrix7 的分类表（Direct / WeChat / 4×AI / TikTok / Telegram / GlobalMedia / BiliBili / Proxy / Apple / AdvertisingLite）+ 217heidai `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 广告 SDK（665 条，`opt-parser=true`）+ 番茄小说 `.snippet`（29 条）。`Privacy.list` 已注释停用。另有 `ChinaIPs`（国内 IP 直连）。精简版只留 9 条 |
+| `[filter_remote]` | 完整版 18 条生效：blackmatrix7 的分类表（Direct / WeChat / 4×AI / TikTok / Telegram / GlobalMedia / BiliBili / Proxy / Apple / AdvertisingLite）+ 217heidai `adblockqxlite`（8,480 条，8 小时重建）+ AWAvenue 广告 SDK（665 条，`opt-parser=true`）+ 番茄小说 `.snippet`（29 条）。`Privacy.list` 已注释停用。另有 `ChinaIPs`（国内 IP 直连）。精简版只留 9 条 |
 | `[rewrite_remote]` | 完整版 5 条：黑猫去广告、墨鱼去开屏、番茄小说去广告 + 2 个 App 专项（字节系 / 小红书）；喜马拉雅 / 大众点评 / 网易云已关闭（留行备查）。精简版只留黑猫 + 墨鱼 2 条 |
 | `[filter_local]` | 21 条精确直连修正 + 局域网 / `.local` + IPv6 私有段直连 + `final, 黑白名单`；**`geoip, cn, direct` 已停用** |
 
@@ -259,6 +259,16 @@ curl -H "User-Agent: Quantumult%20X/1.5.0" https://ddgksf2013.top/rewrite/StartU
 > 小瑕疵一：`.snippet` 里有 3 条写成 `host, *xxx.com` 的规则，QX 的 `host` 不支持通配符，这几条大概率不生效。作者原文件如此，我没有改；想修就把 `host` 换成 `host-suffix`。
 >
 > 小瑕疵二：`.qxrewrite` 自带的 `hostname` 行有 5 条在 QX 里无效（`*.pstatp.com.*` 这类双通配不成立、`*.pangolin-sdk-toutiao` 少了 `.com`），还漏了 `*.byteimg.com` 和 `*.snssdk.com`。我已按它 16 条规则的实际匹配对象重新推导出 8 个域名，补在本仓库配置的 `[mitm]` 里，不需要你手动改上游文件。
+
+**字节系（抖音/头条）去不了广告**
+
+先确认你用的是**完整版**：精简版没有装字节系模块，本来就不拦。
+
+完整版曾经的坑已经修掉：`ByteDance.snippet` 是个混合文件（20 条 `host,...,reject` 分流规则 + 9 条 URL 重写 + hostname），之前只挂在 `[rewrite_remote]`，那 20 条分流规则因此从未生效——`[rewrite_remote]` 只解析 hostname 和 URL 重写。现在改为用奶思的 **`filter/filter.list`（2,761 条全 reject，含字节系 56 条）** 走分流层做域名级拦截。
+
+另一个根本限制来自上游文档：**抖音系列域名无法 MITM**，所以 URL 重写对抖音基本无效，只能靠域名 reject。这也是为什么这个模块看起来"配了却没效果"。
+
+如果还是拦不住：抖音类 App 通常要**清除缓存或重装**后新的域名规则才会生效；仍有残留的话就是上游规则还没覆盖到新的广告端点，只能等上游更新。
 
 **导入时提示「配置文件缺少模块 [server_local]」**
 QX 会校验配置文件里各段落是否齐全，**空段落也必须存在**。本配置已包含 `[server_local]` 与 `[http_backend]` 两个空段落（只有注释，没有生效行），精简配置时别把它们删掉。
